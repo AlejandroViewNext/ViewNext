@@ -1,11 +1,13 @@
 package com.example.viewnext
-
+import android.annotation.SuppressLint
+import java.text.SimpleDateFormat
+import java.util.Locale
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+
 import android.widget.ImageButton
 
 import android.widget.TextView
@@ -138,7 +140,7 @@ class MainActivity : AppCompatActivity() {
             val tvFecha: TextView = view.findViewById(R.id.tvFecha)
             val tvEstado: TextView = view.findViewById(R.id.tvEstado)
             val tvImporte: TextView = view.findViewById(R.id.tvImporte)
-            val btn: Button = view.findViewById(R.id.btn) // Este es el botón definido en el layout item_factura
+            val btn: ImageButton = view.findViewById(R.id.btn) // Este es el botón definido en el layout item_factura
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacturaViewHolder {
@@ -146,11 +148,22 @@ class MainActivity : AppCompatActivity() {
             return FacturaViewHolder(view)
         }
 
+
         override fun onBindViewHolder(holder: FacturaViewHolder, position: Int) {
             val factura = facturas[position]
-            holder.tvFecha.text = factura.fecha
+
+            val formattedDate = formatDate(factura.fecha)
+
+            if (factura.descEstado == "Pendiente de pago") {
+                holder.tvEstado.text = factura.descEstado
+                holder.tvEstado.visibility = View.VISIBLE
+            } else {
+                holder.tvEstado.visibility = View.GONE
+            }
+
+            holder.tvFecha.text = formattedDate
             holder.tvEstado.text = factura.descEstado
-            holder.tvImporte.text = factura.importeOrdenacion.toString()
+            holder.tvImporte.text = "${factura.importeOrdenacion}€" // Agregar el símbolo del euro
 
             holder.btn.setOnClickListener {
                 clickListener.onItemFacturaClicked()
@@ -158,6 +171,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getItemCount() = facturas.size
-
+        private fun formatDate(dateStr: String): String {
+            val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
+            val date = inputFormat.parse(dateStr)
+            return outputFormat.format(date)
+        }
     }
 }
