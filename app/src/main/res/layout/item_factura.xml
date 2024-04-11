@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvFecha"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvEstado"
+        android:layout_width="234dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvFecha"
+        android:layout_alignStart="@id/tvFecha"
+        android:layout_marginTop="8dp"
+
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvImporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tvFecha"
+        android:layout_marginStart="73dp"
+        android:layout_toEndOf="@id/tvFecha"
+
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="49dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tvFecha"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/tvEstado" />
+
+</RelativeLayout>

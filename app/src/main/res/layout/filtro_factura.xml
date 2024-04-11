@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/boton_esquina"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Botón" />
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fecha"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Filtrar facturas"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_above="@+id/fechaLayout"
+        android:layout_marginBottom="-9dp"
+        android:text="Con fecha de emisión"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/fechaLayout"
+        android:layout_width="365dp"
+        android:layout_height="89dp"
+        android:layout_above="@+id/view2"
+        android:layout_marginBottom="9dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="138dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fechaLayout"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/desde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desde"
+                android:textSize="18sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_desde"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_desde"
+                    android:layout_width="134dp"
+                    android:layout_height="36dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="dia/mes/año"
+                    android:inputType="none"
+                    android:onClick="showDatePickerDialog" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="match_parent" />
+
+
+        <LinearLayout
+            android:layout_width="138dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_desde"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/hasta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hasta"
+                android:textSize="18sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_hasta"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_hasta"
+                    android:layout_width="132dp"
+                    android:layout_height="37dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="dia/mes/año"
+                    android:inputType="none"
+                    android:onClick="showDatePickerDialog" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/importe"
+        android:layout_marginBottom="20dp"
+        android:background="#DDDDDD" />
+
+    <TextView
+        android:id="@+id/importe"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_above="@+id/seekbar"
+        android:layout_marginBottom="36dp"
+        android:text="Por un importe"
+        android:textSize="18sp" />
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/view"
+        android:layout_marginBottom="27dp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/checkboxLayout"
+        android:layout_marginBottom="41dp"
+        android:background="#DDDDDD" />
+
+    <TextView
+        android:id="@+id/estado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_marginTop="-30dp"
+        android:text="Por estado"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/checkboxLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boton_grande"
+        android:layout_marginBottom="14dp"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/checkbox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pagadas" />
+
+        <CheckBox
+            android:id="@+id/checkbox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anuladas" />
+
+        <CheckBox
+            android:id="@+id/checkbox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cuota fija" />
+
+        <CheckBox
+            android:id="@+id/checkbox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pendientes de pago" />
+
+        <CheckBox
+            android:id="@+id/checkbox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plan de pago" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/boton_grande"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:text="Botón Grande" />
+
+</RelativeLayout>
