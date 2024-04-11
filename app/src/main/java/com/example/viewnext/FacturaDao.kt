@@ -17,4 +17,7 @@ interface FacturaDao {
 
     @Query("SELECT * FROM facturas")
     suspend fun getFacturas(): List<FacturaEntity>
+
+    @Query("DELETE FROM facturas")
+    suspend fun deleteAllFacturas()
 }

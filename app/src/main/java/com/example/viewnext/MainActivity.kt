@@ -42,9 +42,7 @@ class MainActivity : AppCompatActivity() {
         @GET("facturas")
         fun getFacturas(): Call<ApiResponse>
     }
-
-
-
+    
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -83,6 +81,7 @@ class MainActivity : AppCompatActivity() {
 
                     // Insertar las facturas en la base de datos Room
                     GlobalScope.launch {
+                        facturasDao.deleteAllFacturas()
                         facturasApiResponse.forEach { factura ->
                             facturasDao.insertFactura(
                                 FacturaEntity(
