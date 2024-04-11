@@ -2,48 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
+
+    <!-- Contenido principal -->
+
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        app:navigationIconTint="#7BC334"
         android:elevation="4dp"
+        app:titleTextColor="#7BC334"
+        app:title="Consumo"
+
+        app:navigationIcon="@drawable/arrow_left"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-        <!-- Botón de la izquierda -->
-        <ImageButton
-            android:id="@+id/btnLeft"
-            android:layout_width="100dp"
-            android:layout_height="45dp"
-            android:layout_gravity="start"
-            android:padding="10dp"
-            />
 
         <!-- Botón de la derecha -->
         <ImageButton
             android:id="@+id/btnFiltro"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="end"
             android:padding="8dp"
-            />
-    </androidx.appcompat.widget.Toolbar>
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/filtro" />
+    </com.google.android.material.appbar.MaterialToolbar>
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Facturas"
+        android:textSize="30sp"
+        android:textStyle="bold"
 
-    <!-- Contenido principal -->
+        android:layout_marginStart="16dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="633dp"
         android:layout_gravity="center"
+        android:orientation="horizontal"
         android:padding="16dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFacturas"
             android:layout_width="374dp"
-            android:layout_height="172dp"
+            android:layout_height="633dp"
             android:scrollbars="vertical" />
 
         <ProgressBar
