@@ -49,6 +49,8 @@ dependencies {
     implementation(libs.retrofit)
 
     implementation (libs.retrofit)
+    implementation (libs.material.v140)
+
     kapt (libs.androidx.room.compiler)
 
 }

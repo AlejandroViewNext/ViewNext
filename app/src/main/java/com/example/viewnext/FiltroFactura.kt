@@ -1,39 +1,60 @@
 package com.example.viewnext
-
-
-import android.os.Build
+import android.app.DatePickerDialog
 import android.os.Bundle
-import android.widget.SeekBar
-import androidx.annotation.RequiresApi
+import android.widget.DatePicker
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.slider.Slider
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FiltroFactura : AppCompatActivity() {
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filtro_factura)
 
-        val seekBar = findViewById<SeekBar>(R.id.seekbar)
+        val slider = findViewById<Slider>(R.id.slider)
+        val rangeSelectedText = findViewById<TextView>(R.id.range_selected_text)
 
-        // Establecer el valor mínimo y máximo
-        seekBar.min = 1
-        seekBar.max = 300
+        // Escuchar cambios en el Slider
+        slider.addOnChangeListener { _, value, _ ->
+            // Actualizar el texto para mostrar el valor seleccionado
+            val selectedValueText = "1€  -   ${value.toInt()}€"
+            rangeSelectedText.text = selectedValueText
+        }
 
-        // Escuchar cambios en la seekbar
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                // Manejar el cambio de progreso aquí
-            }
+        // Obtener referencias a los TextInputEditText
+        val editTextDesde = findViewById<MaterialButton>(R.id.editText_desde)
+        val editTextHasta = findViewById<MaterialButton>(R.id.editText_hasta)
 
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // Método llamado cuando el usuario toca la seekbar
-            }
+        // Asociar el método showDatePickerDialog al evento onClick de los TextInputEditText
+        editTextDesde.setOnClickListener {
+            showDatePickerDialog(editTextDesde)
+        }
 
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // Método llamado cuando el usuario deja de tocar la seekbar
-            }
-        })
+        editTextHasta.setOnClickListener {
+            showDatePickerDialog(editTextHasta)
+        }
+    }
+
+    // Método para mostrar el DatePickerDialog
+    private fun showDatePickerDialog(materialButton: MaterialButton) {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this,
+            { _: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+                // Setear la fecha seleccionada en el TextInputEditText
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, monthOfYear, dayOfMonth)
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val formattedDate = dateFormat.format(selectedDate.time)
+                materialButton.setText(formattedDate)
+            }, year, month, day)
+
+        datePickerDialog.show()
     }
 }

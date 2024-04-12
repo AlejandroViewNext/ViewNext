@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <Button
+    <ImageButton
         android:id="@+id/boton_esquina"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Botón" />
+        android:backgroundTint="#00FFFFFF"
+        android:src="@drawable/close" />
 
     <TextView
         android:id="@+id/titulo"
-        android:layout_width="203dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/fecha"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="-1dp"
         android:text="Filtrar facturas"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/fecha"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_above="@+id/fechaLayout"
-        android:layout_marginBottom="-9dp"
+        android:layout_marginBottom="-14dp"
         android:text="Con fecha de emisión"
-        android:textSize="18sp" />
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/fechaLayout"
@@ -52,25 +56,27 @@
                 android:id="@+id/desde"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Desde"
-                android:textSize="18sp" />
+                android:text="Desde:"
+                android:textSize="15sp"
+                android:textColor="#959595"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_desde"
-                android:layout_width="155dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
 
-                <com.google.android.material.textfield.TextInputEditText
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/editText_desde"
                     android:layout_width="134dp"
                     android:layout_height="36dp"
+                    android:background="@drawable/borde_redondeado"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:hint="dia/mes/año"
-                    android:inputType="none"
+                    android:gravity="center"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:text="Seleccionar Fecha"
+                    android:textColor="@color/black"
                     android:onClick="showDatePickerDialog" />
-            </com.google.android.material.textfield.TextInputLayout>
+
 
         </LinearLayout>
 
@@ -82,7 +88,7 @@
         <LinearLayout
             android:layout_width="138dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/til_desde"
+
             android:layout_marginTop="16dp"
             android:orientation="vertical">
 
@@ -90,25 +96,25 @@
                 android:id="@+id/hasta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hasta"
-                android:textSize="18sp" />
+                android:text="Hasta:"
+                android:textSize="15sp"
+                android:textColor="#959595"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_hasta"
-                android:layout_width="155dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/editText_hasta"
                     android:layout_width="132dp"
                     android:layout_height="37dp"
                     android:focusable="false"
+                    android:background="@drawable/borde_redondeado"
                     android:focusableInTouchMode="false"
                     android:hint="dia/mes/año"
-                    android:inputType="none"
+                    android:gravity="center"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="Seleccionar Fecha"
                     android:onClick="showDatePickerDialog" />
-            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
     </LinearLayout>
@@ -121,22 +127,73 @@
         android:layout_marginBottom="20dp"
         android:background="#DDDDDD" />
 
+
     <TextView
         android:id="@+id/importe"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
-        android:layout_above="@+id/seekbar"
-        android:layout_marginBottom="36dp"
+        android:layout_above="@+id/slider"
+        android:layout_marginBottom="50dp"
         android:text="Por un importe"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/range_selected_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/slider"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textColor="@color/verdePistacho"
+        android:textSize="20sp" />
 
-    <SeekBar
-        android:id="@+id/seekbar"
+    <!-- Agrega TextView para el valor máximo del slider -->
+
+    <!-- Tu diseño existente -->
+
+    <!-- Agrega el Slider -->
+
+    <TextView
+        android:id="@+id/min_value_text"
+        android:layout_width="33dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slider"
+        android:layout_alignStart="@id/slider"
+        android:layout_alignBottom="@+id/range_selected_text"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-85dp"
+        android:layout_marginEnd="287dp"
+        android:layout_marginBottom="-5dp"
+        android:layout_toStartOf="@+id/max_value_text"
+        android:text="1"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/max_value_text"
+        android:layout_width="39dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slider"
+        android:layout_alignEnd="@id/slider"
+        android:layout_marginTop="-89dp"
+
+        android:text="300"
+        android:textSize="16sp" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/view"
-        android:layout_marginBottom="27dp" />
+        android:valueFrom="1"
+        android:valueTo="300"
+        android:value="1"
+        app:thumbColor="@color/verdePistacho"
+        app:trackColorActive="@color/verdePistacho"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@id/view"
+        android:layout_centerHorizontal="true" />
 
+    <!-- Otros elementos de tu diseño -->
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -152,14 +209,15 @@
         android:layout_below="@+id/view"
         android:layout_marginTop="-30dp"
         android:text="Por estado"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:id="@+id/checkboxLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/boton_grande"
-        android:layout_marginBottom="14dp"
+        android:layout_above="@+id/linearLayout"
+        android:layout_marginBottom="24dp"
         android:orientation="vertical">
 
         <CheckBox
@@ -194,12 +252,31 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/boton_grande"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="3dp"
-        android:text="Botón Grande" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/eliminar_filtros"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Eliminar Filtros"
+            android:backgroundTint="#A3A3A3"
+            />
+
+        <Button
+            android:id="@+id/filtrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Filtrar"
+            android:backgroundTint="@color/verdePistacho"
+            />
+
+    </LinearLayout>
 
 </RelativeLayout>
