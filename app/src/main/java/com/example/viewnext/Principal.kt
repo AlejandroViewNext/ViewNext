@@ -9,11 +9,20 @@ class Principal  : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.principal)
 
-        val arrowButton: ImageButton = findViewById(R.id.arrowButton)
-        arrowButton.setOnClickListener {
+        val arrowButton1: ImageButton = findViewById(R.id.arrowButton)
+        arrowButton1.setOnClickListener {
 
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
+
+        val arrowButton2: ImageButton = findViewById(R.id.arrowButton2)
+        arrowButton2.setOnClickListener {
+
+            val intent = Intent(this,SmartSolar::class.java)
+            startActivity(intent)
+        }
     }
+
+
 }

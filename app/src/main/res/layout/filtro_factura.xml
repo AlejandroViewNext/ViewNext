@@ -67,14 +67,11 @@
                 android:layout_height="59dp"
                 android:backgroundTint="#CFCFCF"
                 android:focusable="false"
-                android:focusableInTuchMode="false"
+                android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:onClick="showDatePickerDialog"
                 android:shape="rectangle"
-
                 android:text="dia/mes/año"
-
-
                 android:textColor="#3E3D3D"
                 android:textSize="14dp" />
 
