@@ -39,15 +39,15 @@
 
     <LinearLayout
         android:id="@+id/fechaLayout"
-        android:layout_width="365dp"
-        android:layout_height="89dp"
+        android:layout_width="364dp"
+        android:layout_height="95dp"
         android:layout_above="@+id/view2"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="138dp"
-            android:layout_height="wrap_content"
+            android:layout_width="140dp"
+            android:layout_height="79dp"
             android:layout_below="@id/fechaLayout"
             android:layout_marginTop="16dp"
             android:orientation="vertical">
@@ -57,25 +57,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Desde:"
-                android:textSize="15sp"
-                android:textColor="#959595"/>
+                android:textColor="#959595"
+                android:textSize="15sp" />
 
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editText_desde"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:backgroundTint="#CFCFCF"
+                android:focusable="false"
+                android:focusableInTuchMode="false"
+                android:gravity="center"
+                android:onClick="showDatePickerDialog"
+                android:shape="rectangle"
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/editText_desde"
-                    android:layout_width="134dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/borde_redondeado"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="dia/mes/año"
-                    android:gravity="center"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:text="Seleccionar Fecha"
-                    android:textColor="@color/black"
-                    android:onClick="showDatePickerDialog" />
+                android:text="dia/mes/año"
+
+
+                android:textColor="#3E3D3D"
+                android:textSize="14dp" />
 
 
         </LinearLayout>
@@ -86,8 +87,8 @@
 
 
         <LinearLayout
-            android:layout_width="138dp"
-            android:layout_height="wrap_content"
+            android:layout_width="140dp"
+            android:layout_height="79dp"
 
             android:layout_marginTop="16dp"
             android:orientation="vertical">
@@ -97,23 +98,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hasta:"
-                android:textSize="15sp"
-                android:textColor="#959595"/>
+                android:textColor="#959595"
+                android:textSize="15sp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/editText_hasta"
-                    android:layout_width="132dp"
-                    android:layout_height="37dp"
-                    android:focusable="false"
-                    android:background="@drawable/borde_redondeado"
-                    android:focusableInTouchMode="false"
-                    android:hint="dia/mes/año"
-                    android:gravity="center"
-                    android:textSize="14dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:text="Seleccionar Fecha"
-                    android:onClick="showDatePickerDialog" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editText_hasta"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:backgroundTint="#CFCFCF"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:onClick="showDatePickerDialog"
+                android:text="dia/mes/año"
+                android:textColor="#3E3D3D"/>
 
         </LinearLayout>
 

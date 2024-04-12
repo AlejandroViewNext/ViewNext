@@ -7,13 +7,6 @@
 
     <style name="Theme.ViewNext" parent="Base.Theme.ViewNext" />
 
-    <style name="RoundedTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded</item>
-    </style>
 
-    <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item> <!-- El tamaño de los bordes redondeados -->
-    </style>
 
 </resources>
