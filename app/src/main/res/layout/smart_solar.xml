@@ -6,10 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".SmartSolar">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIconTint="#7BC334"
+        android:elevation="4dp"
+        app:titleTextColor="#7BC334"
+        app:title="Atras"
+        app:navigationIcon="@drawable/arrow_left"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+
+    <TextView
+        android:id="@+id/textViewAboveToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@id/toolbar"
+        android:layout_marginTop="-30dp"
+        android:layout_marginBottom="-120dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:text="Smart Solar"
+        android:textColor="#4C4C4C"
+        />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
         app:tabMode="fixed" />
 
     <androidx.viewpager.widget.ViewPager
