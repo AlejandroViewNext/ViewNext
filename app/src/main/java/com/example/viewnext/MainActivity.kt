@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         val btnFiltro = findViewById<ImageButton>(R.id.btnFiltro)
         btnFiltro.setOnClickListener {
             val intent = Intent(this, FiltroFactura::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 

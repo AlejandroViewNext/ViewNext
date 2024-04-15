@@ -31,6 +31,7 @@ class SmartSolar : AppCompatActivity() {
         // Configurar el clic en la Toolbar para redirigir a la actividad "Principal"
         toolbar.setNavigationOnClickListener {
             val intent = Intent(this, Principal::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
     }

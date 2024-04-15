@@ -18,13 +18,15 @@ class LogIn: AppCompatActivity()  {
         botonEntrar.setOnClickListener {
             // Define la navegación hacia la actividad Principal
             val intent = Intent(this, Principal::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
         val botonRegistro = findViewById<Button>(R.id.botonRegistrar)
         botonRegistro.setOnClickListener {
-            // Define la navegación hacia la actividad Principal
+
             val intent = Intent(this, SingUp::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
@@ -32,6 +34,7 @@ class LogIn: AppCompatActivity()  {
         textViewOlvidadoDatos.setOnClickListener {
             // Define la navegación hacia la actividad donde el usuario recupera sus datos
             val intent = Intent(this, ForgotPassword::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
     }

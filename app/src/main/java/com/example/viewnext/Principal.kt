@@ -13,6 +13,7 @@ class Principal  : AppCompatActivity() {
         arrowButton1.setOnClickListener {
 
             val intent = Intent(this,MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
@@ -20,6 +21,7 @@ class Principal  : AppCompatActivity() {
         arrowButton2.setOnClickListener {
 
             val intent = Intent(this,SmartSolar::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
     }
