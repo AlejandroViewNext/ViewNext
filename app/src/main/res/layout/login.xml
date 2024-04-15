@@ -73,20 +73,25 @@
         android:layout_marginStart="16dp"/>
 
 
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/botonEntrar"
-        android:layout_width="259dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="90dp"
-        android:text="Entrar"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="285dp"
+        android:layout_height="51dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="92dp"
         android:backgroundTint="@color/verdePistacho"
+        android:text="Entrar"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewOlvidadoDatos"
-        app:layout_constraintVertical_bias="0.363" />
+        app:rippleColor="@color/white"
+        app:strokeColor="@color/verdePistacho"
+        app:strokeWidth="2dp" />
 
     <LinearLayout
         android:id="@+id/linearLayoutO"
@@ -128,16 +133,22 @@
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/botonRegistrar"
-        android:layout_width="264dp"
+        android:layout_width="282dp"
         android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
         android:text="Registrarse"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/verdePistacho"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutO"
-        app:layout_constraintVertical_bias="0.157" />
+        app:rippleColor="@color/verdePistacho"
+        app:strokeColor="@color/verdePistacho"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
