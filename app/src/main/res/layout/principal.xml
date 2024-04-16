@@ -83,6 +83,7 @@
                 android:backgroundTint="#00FFFFFF"
                 android:src="@drawable/arrow_rigth" />
         </LinearLayout>
+
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
@@ -90,5 +91,26 @@
             android:layout_marginBottom="20dp"
             android:background="#ACACAC" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:layout_marginTop="-20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_open_external_browser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abrir Navegador Externo" />
+
+            <Button
+                android:id="@+id/btn_open_webview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abrir Webview" />
+        </LinearLayout>
+
     </LinearLayout>
+
 </RelativeLayout>
