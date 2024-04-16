@@ -6,8 +6,11 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 
 class SingUp : AppCompatActivity(){
 
@@ -15,10 +18,10 @@ class SingUp : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.singup)
 
-
-
-
+        val botonRegistrar = findViewById<Button>(R.id.botonReg)
         val botonLogIn = findViewById<Button>(R.id.botonLogIn)
+
+
         botonLogIn.setOnClickListener {
             val intent = Intent(this, LogIn::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -26,6 +29,21 @@ class SingUp : AppCompatActivity(){
         }
         setup()
 
+        val colorFake= ContextCompat.getColor(this,R.color.black)
+        val colorFake2= ContextCompat.getColor(this,R.color.white)
+        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{ task ->
+            if(task.isSuccessful){
+                val showColor : Boolean = Firebase.remoteConfig.getBoolean("Show_Colors")
+                if (showColor){
+                    botonLogIn.setBackgroundColor(colorFake)
+                    botonRegistrar.setBackgroundColor(colorFake)
+                    botonRegistrar.setTextColor(colorFake2)
+                    botonLogIn.setTextColor(colorFake2)
+                    botonLogIn.setText("Ya tengo una cuenta")
+                    botonRegistrar.setText("Terminar Registro")
+                }
+            }
+        }
     }
     private fun setup(){
         title= "Registro"
@@ -49,6 +67,11 @@ class SingUp : AppCompatActivity(){
                             showAlert()
                     }
                 }
+            }else if( editTextContrasena.text.isEmpty()){
+                AlertPassword()
+            }
+            else if(editTextUsuario.text.isEmpty()){
+                AlertCorreo()
             }
         }
     }
@@ -57,9 +80,24 @@ class SingUp : AppCompatActivity(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
         builder.setMessage("se ha producido un error al registrarse")
+        builder.setPositiveButton("Aceptar",null)
+        val dialog: AlertDialog= builder.create()
+        dialog.show()
+    }
+    private fun AlertCorreo(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error")
+        builder.setMessage("Correo electronico no valido o vacio")
         builder.setPositiveButton("aceptar",null)
         val dialog: AlertDialog= builder.create()
         dialog.show()
     }
-
+    private fun AlertPassword(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error")
+        builder.setMessage("Contraseña vacia o no valida(debe tener ams de 6 caracteres, numeros y letras")
+        builder.setPositiveButton("Aceptar",null)
+        val dialog: AlertDialog= builder.create()
+        dialog.show()
+    }
 }

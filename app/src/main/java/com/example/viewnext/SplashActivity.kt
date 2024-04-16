@@ -11,8 +11,7 @@ import com.google.firebase.remoteconfig.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
 
 class SplashActivity : AppCompatActivity() {
-    private val SPLASH_TIME_OUT: Long = 3000 // 3 segundos
-
+    private val SPLASH_TIME_OUT: Long = 2000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -26,10 +25,10 @@ class SplashActivity : AppCompatActivity() {
 
         //remote config
 val configSettings= remoteConfigSettings {
-    minimumFetchIntervalInSeconds= 60
+    minimumFetchIntervalInSeconds= 15
 }
 val firebaseConfig: FirebaseRemoteConfig= Firebase.remoteConfig
         firebaseConfig.setConfigSettingsAsync(configSettings)
-firebaseConfig.setDefaultsAsync(mapOf("show_menu" to false))
+firebaseConfig.setDefaultsAsync(mapOf("show_menu" to false,"Show_Colors" to false))
     }
 }
