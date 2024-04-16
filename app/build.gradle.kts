@@ -48,10 +48,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
-
+    implementation("com.google.firebase:firebase-config-ktx:21.6.3")
     implementation (libs.retrofit)
     implementation (libs.material.v140)
-
     kapt (libs.androidx.room.compiler)
 
 

@@ -4,6 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.remoteConfig
+import com.google.firebase.remoteconfig.remoteConfigSettings
 
 class SplashActivity : AppCompatActivity() {
     private val SPLASH_TIME_OUT: Long = 3000 // 3 segundos
@@ -18,5 +23,13 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, SPLASH_TIME_OUT)
+
+        //remote config
+val configSettings= remoteConfigSettings {
+    minimumFetchIntervalInSeconds= 60
+}
+val firebaseConfig: FirebaseRemoteConfig= Firebase.remoteConfig
+        firebaseConfig.setConfigSettingsAsync(configSettings)
+firebaseConfig.setDefaultsAsync(mapOf("show_menu" to false))
     }
 }

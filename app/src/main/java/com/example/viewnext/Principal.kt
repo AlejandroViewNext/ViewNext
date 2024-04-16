@@ -1,14 +1,19 @@
 package com.example.viewnext
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+
 class Principal  : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.principal)
-
+        val practica1: LinearLayout = findViewById(R.id.practica1)
         val arrowButton1: ImageButton = findViewById(R.id.arrowButton)
         arrowButton1.setOnClickListener {
 
@@ -25,7 +30,16 @@ class Principal  : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+    //remote config
+        practica1.visibility= View.INVISIBLE
+        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{task ->
+            if(task.isSuccessful){
+                val showPractica : Boolean = Firebase.remoteConfig.getBoolean("show_menu")
+                if (showPractica){
+                    practica1.visibility= View.VISIBLE
+                }
+            }
+        }
     }
 
 
