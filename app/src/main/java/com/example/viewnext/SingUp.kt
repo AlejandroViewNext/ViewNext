@@ -40,11 +40,11 @@ class SingUp : AppCompatActivity(){
                     editTextContrasena.text.toString()).addOnCompleteListener {
 
                     if (it.isSuccessful){
-                        botonRegistrar.setOnClickListener {
+
                             val intent = Intent(this, LogIn::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             startActivity(intent)
-                        }
+
                     }else{
                             showAlert()
                     }

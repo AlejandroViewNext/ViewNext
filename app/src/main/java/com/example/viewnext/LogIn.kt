@@ -50,11 +50,11 @@ class LogIn: AppCompatActivity()  {
                     editTextContraseña.text.toString()).addOnCompleteListener {
 
                     if (it.isSuccessful){
-                        botonEntrar.setOnClickListener {
+                       
                             val intent = Intent(this, Principal::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             startActivity(intent)
-                        }
+
                     }else{
                         showAlert()
                     }
