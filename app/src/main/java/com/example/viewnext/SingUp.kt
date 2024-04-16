@@ -95,7 +95,7 @@ class SingUp : AppCompatActivity(){
     private fun AlertPassword(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("Contraseña vacia o no valida(debe tener ams de 6 caracteres, numeros y letras")
+        builder.setMessage("Contraseña vacia o no valida(debe tener al menos 6 caracteres, numeros y letras")
         builder.setPositiveButton("Aceptar",null)
         val dialog: AlertDialog= builder.create()
         dialog.show()

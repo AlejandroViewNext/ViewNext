@@ -80,6 +80,11 @@ class LogIn: AppCompatActivity()  {
                         showAlert()
                     }
                 }
+            }else if(editTextContraseña.text.isEmpty()){
+                AlertPassword()
+            }
+            else if(editTextUsuario.text.isEmpty()){
+                AlertCorreo()
             }
         }
     }
@@ -87,9 +92,25 @@ class LogIn: AppCompatActivity()  {
     private fun showAlert(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("se ha producido un error al Iniciar sesion")
+        builder.setMessage("se ha producido un error al registrarse")
+        builder.setPositiveButton("Aceptar",null)
+        val dialog: AlertDialog= builder.create()
+        dialog.show()
+    }
+    private fun AlertCorreo(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error")
+        builder.setMessage("Correo electronico no valido o vacio")
         builder.setPositiveButton("aceptar",null)
-        val dialog: AlertDialog = builder.create()
+        val dialog: AlertDialog= builder.create()
+        dialog.show()
+    }
+    private fun AlertPassword(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error")
+        builder.setMessage("Contraseña vacia o no valida(debe tener al menos 6 caracteres, numeros y letras")
+        builder.setPositiveButton("Aceptar",null)
+        val dialog: AlertDialog= builder.create()
         dialog.show()
     }
 
