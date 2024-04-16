@@ -1,6 +1,5 @@
 package com.example.viewnext
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,7 +12,9 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.widget.ImageButton
 
 class LogIn: AppCompatActivity()  {
 
@@ -38,7 +39,18 @@ class LogIn: AppCompatActivity()  {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
+        val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
+        val botonMostrarContraseña = findViewById<ImageButton>(R.id.imageViewPassword)
+        botonMostrarContraseña.setOnClickListener {
 
+            if (editTextContraseña.transformationMethod == PasswordTransformationMethod.getInstance()) {
+
+                editTextContraseña.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+
+                editTextContraseña.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
         setup()
 
         val colorFake= ContextCompat.getColor(this,R.color.black)

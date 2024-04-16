@@ -2,8 +2,11 @@ package com.example.viewnext
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -27,6 +30,20 @@ class SingUp : AppCompatActivity(){
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
+
+
+        val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
+        val botonMostrarContraseña = findViewById<ImageButton>(R.id.imageViewPassword)
+        botonMostrarContraseña.setOnClickListener {
+
+            if (editTextContraseña.transformationMethod == PasswordTransformationMethod.getInstance()) {
+
+                editTextContraseña.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+
+                editTextContraseña.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
         setup()
 
         val colorFake= ContextCompat.getColor(this,R.color.black)
@@ -45,6 +62,8 @@ class SingUp : AppCompatActivity(){
             }
         }
     }
+
+
     private fun setup(){
         title= "Registro"
         val botonRegistrar = findViewById<Button>(R.id.botonReg)
