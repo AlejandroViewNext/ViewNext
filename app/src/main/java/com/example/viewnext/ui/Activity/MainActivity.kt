@@ -1,54 +1,38 @@
-package com.example.viewnext
-import android.annotation.SuppressLint
-import java.text.SimpleDateFormat
-import java.util.Locale
+package com.example.viewnext.ui.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-
 import android.widget.ImageButton
-
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
-import androidx.room.Room
-
+import com.example.viewnext.R
+import com.example.viewnext.domain.retrofit.Factura
+import com.example.viewnext.domain.retrofit.FacturaApiService
+import com.example.viewnext.domain.retrofit.FacturasAdapter
+import com.example.viewnext.domain.room.AppDatabase
+import com.example.viewnext.domain.room.FacturaDao
+import com.example.viewnext.domain.room.FacturaEntity
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-
-//Actualmente no estoy usando esto ya que me da fallos el import
-import com.example.viewnext.FacturaApiService
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var facturasApiResponse: List<Factura>
+    private lateinit var facturasApiResponse: List<Factura.Factura>
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FacturasAdapter
     private lateinit var facturasDao: FacturaDao
 
-//Arreglo temporal
-    interface FacturaApiService {
-        @GET("facturas")
-        fun getFacturas(): Call<ApiResponse>
-    }
-    
+    private lateinit var service: FacturaApiService
+
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recyclerView = findViewById(R.id.recyclerViewFacturas)
@@ -64,20 +48,21 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://viewnextandroid.wiremockapi.cloud/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+        service = retrofit.create(FacturaApiService::class.java)
 
+        loadFacturas()
+    }
 
-        val service = retrofit.create(FacturaApiService::class.java)
-
-        service.getFacturas().enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+    private fun loadFacturas() {
+        service.getFacturas().enqueue(object : Callback<Factura.ApiResponse> {
+            override fun onResponse(call: Call<Factura.ApiResponse>, response: Response<Factura.ApiResponse>) {
                 if (response.isSuccessful) {
-                    facturasApiResponse = response.body()?.facturas ?: emptyList()
+                    facturasApiResponse = (response.body()?.facturas ?: emptyList()) as List<Factura.Factura>
                     adapter = FacturasAdapter(facturasApiResponse, this@MainActivity)
                     recyclerView.adapter = adapter
                     Toast.makeText(applicationContext, "Todo correcto", Toast.LENGTH_SHORT).show()
@@ -98,14 +83,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+            override fun onFailure(call: Call<Factura.ApiResponse>, t: Throwable) {
                 Toast.makeText(applicationContext, "Error al cargar los datos", Toast.LENGTH_LONG).show()
             }
         })
     }
+
     fun onItemFacturaClicked() {
         showCustomAlertDialog()
     }
+
     private fun showCustomAlertDialog() {
         val builder = android.app.AlertDialog.Builder(this)
 
@@ -121,62 +108,5 @@ class MainActivity : AppCompatActivity() {
         // Mostrar el AlertDialog
         val alertDialog = builder.create()
         alertDialog.show()
-    }
-    data class Factura(
-        val fecha: String,
-        val importeOrdenacion: Double,
-        val descEstado: String
-    )
-
-
-    data class ApiResponse(
-        val numFacturas: Int,
-        val facturas: List<Factura>
-    )
-
-    // Define el adaptador del RecyclerView
-    class FacturasAdapter(private val facturas: List<Factura>, private val clickListener: MainActivity) : RecyclerView.Adapter<FacturasAdapter.FacturaViewHolder>() {
-
-        class FacturaViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-            val tvFecha: TextView = view.findViewById(R.id.tvFecha)
-            val tvEstado: TextView = view.findViewById(R.id.tvEstado)
-            val tvImporte: TextView = view.findViewById(R.id.tvImporte)
-            val btn: ImageButton = view.findViewById(R.id.btn) // Este es el botón definido en el layout item_factura
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacturaViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_factura, parent, false)
-            return FacturaViewHolder(view)
-        }
-
-
-        override fun onBindViewHolder(holder: FacturaViewHolder, position: Int) {
-            val factura = facturas[position]
-
-            val formattedDate = formatDate(factura.fecha)
-
-            if (factura.descEstado == "Pendiente de pago") {
-                holder.tvEstado.text = factura.descEstado
-                holder.tvEstado.visibility = View.VISIBLE
-            } else {
-                holder.tvEstado.visibility = View.GONE
-            }
-
-            holder.tvFecha.text = formattedDate
-            holder.tvEstado.text = factura.descEstado
-            holder.tvImporte.text = "${factura.importeOrdenacion}€" // Agregar el símbolo del euro
-
-            holder.btn.setOnClickListener {
-                clickListener.onItemFacturaClicked()
-            }
-        }
-
-        override fun getItemCount() = facturas.size
-        private fun formatDate(dateStr: String): String {
-            val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
-            val date = inputFormat.parse(dateStr)
-            return outputFormat.format(date)
-        }
     }
 }

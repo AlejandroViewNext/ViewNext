@@ -13,20 +13,20 @@
         android:theme="@style/Theme.ViewNext"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.Splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".FiltroFactura" />
-        <activity android:name=".SmartSolar" />
-        <activity android:name=".SingUp" />
-        <activity android:name=".LogIn" />
-        <activity android:name=".ForgotPassword" />
-        <activity android:name=".Principal" />
+        <activity android:name=".ui.Activity.MainActivity" />
+        <activity android:name=".ui.Activity.FiltroFactura" />
+        <activity android:name=".ui.Activity.SmartSolar" />
+        <activity android:name=".ui.Activity.Firebase.SignUp" />
+        <activity android:name=".ui.Activity.Firebase.LogIn" />
+        <activity android:name=".ui.Activity.Firebase.ForgotPassword" />
+        <activity android:name=".ui.Activity.Principal" />
 
     </application>
 

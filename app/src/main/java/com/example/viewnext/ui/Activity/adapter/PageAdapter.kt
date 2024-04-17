@@ -1,8 +1,11 @@
-package com.example.viewnext
+package com.example.viewnext.ui.Activity.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.viewnext.ui.Activity.fragments.InstalacionFragment
+import com.example.viewnext.ui.Activity.fragments.DetallesFragment
+import com.example.viewnext.ui.Activity.fragments.EnergiaFragment
 
 class PagerAdapter(fm: FragmentManager, behaviorResumeOnlyCurrentFragment: Int) : FragmentPagerAdapter(fm) {
 

@@ -1,4 +1,4 @@
-package com.example.viewnext
+package com.example.viewnext.ui.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.viewnext.ui.Activity.adapter.PagerAdapter
+import com.example.viewnext.R
 import com.google.android.material.appbar.MaterialToolbar
 
 class SmartSolar : AppCompatActivity() {

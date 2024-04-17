@@ -1,9 +1,10 @@
-package com.example.viewnext
+package com.example.viewnext.ui.Activity
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.viewnext.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.slider.Slider
 import java.text.SimpleDateFormat

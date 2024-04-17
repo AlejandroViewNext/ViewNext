@@ -1,10 +1,10 @@
-package com.example.viewnext
+package com.example.viewnext.ui.Activity.Firebase
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
+import com.example.viewnext.R
 
 class ForgotPassword : AppCompatActivity() {
 

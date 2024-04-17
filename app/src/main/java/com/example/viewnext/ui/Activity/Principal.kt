@@ -1,4 +1,4 @@
-package com.example.viewnext
+package com.example.viewnext.ui.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.example.viewnext.R
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 
@@ -33,7 +34,7 @@ class Principal  : AppCompatActivity() {
         }
         arrowButton1.setOnClickListener {
 
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
@@ -41,7 +42,7 @@ class Principal  : AppCompatActivity() {
         val arrowButton2: ImageButton = findViewById(R.id.arrowButton2)
         arrowButton2.setOnClickListener {
 
-            val intent = Intent(this,SmartSolar::class.java)
+            val intent = Intent(this, SmartSolar::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }

@@ -1,4 +1,4 @@
-package com.example.viewnext
+package com.example.viewnext.domain.room
 
 
 
