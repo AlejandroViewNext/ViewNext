@@ -1,4 +1,4 @@
-package com.example.viewnext.domain.retrofit
+package com.example.viewnext.data.retrofit
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +7,11 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewnext.R
-import com.example.viewnext.ui.Activity.MainActivity
+import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class FacturasAdapter(private val facturas: List<Factura.Factura>, private val clickListener: MainActivity) : RecyclerView.Adapter<FacturasAdapter.FacturaViewHolder>() {
+class FacturasAdapter(private val facturas: List<Factura.Factura>, private val clickListener: ListaFacturas) : RecyclerView.Adapter<FacturasAdapter.FacturaViewHolder>() {
 
     class FacturaViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val tvFecha: TextView = view.findViewById(R.id.tvFecha)

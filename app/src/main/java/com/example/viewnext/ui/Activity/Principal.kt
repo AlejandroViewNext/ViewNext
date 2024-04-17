@@ -10,6 +10,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.viewnext.R
+import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas
+import com.example.viewnext.ui.Activity.Practicas.Practica2.SmartSolar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 
@@ -34,7 +36,7 @@ class Principal  : AppCompatActivity() {
         }
         arrowButton1.setOnClickListener {
 
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ListaFacturas::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }

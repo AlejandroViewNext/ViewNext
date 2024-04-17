@@ -1,5 +1,6 @@
-package com.example.viewnext.domain.retrofit
+package com.example.viewnext.data.retrofit
 
+import com.example.viewnext.data.retrofit.Factura
 import retrofit2.Call
 import retrofit2.http.GET
 

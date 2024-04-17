@@ -1,4 +1,4 @@
-package com.example.viewnext.ui.Activity
+package com.example.viewnext.ui.Activity.Practicas.Practica1
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
@@ -7,12 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewnext.R
-import com.example.viewnext.domain.retrofit.Factura
-import com.example.viewnext.domain.retrofit.FacturaApiService
-import com.example.viewnext.domain.retrofit.FacturasAdapter
-import com.example.viewnext.domain.room.AppDatabase
-import com.example.viewnext.domain.room.FacturaDao
-import com.example.viewnext.domain.room.FacturaEntity
+import com.example.viewnext.data.retrofit.Factura
+import com.example.viewnext.data.retrofit.FacturaApiService
+import com.example.viewnext.data.retrofit.FacturasAdapter
+import com.example.viewnext.data.room.AppDatabase
+import com.example.viewnext.data.room.FacturaDao
+import com.example.viewnext.data.room.FacturaEntity
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class ListaFacturas : AppCompatActivity() {
 
     private lateinit var facturasApiResponse: List<Factura.Factura>
     private lateinit var recyclerView: RecyclerView
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Factura.ApiResponse>, response: Response<Factura.ApiResponse>) {
                 if (response.isSuccessful) {
                     facturasApiResponse = (response.body()?.facturas ?: emptyList()) as List<Factura.Factura>
-                    adapter = FacturasAdapter(facturasApiResponse, this@MainActivity)
+                    adapter = FacturasAdapter(facturasApiResponse, this@ListaFacturas)
                     recyclerView.adapter = adapter
                     Toast.makeText(applicationContext, "Todo correcto", Toast.LENGTH_SHORT).show()
 

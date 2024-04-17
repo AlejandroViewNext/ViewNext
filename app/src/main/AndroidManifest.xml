@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activity.MainActivity" />
-        <activity android:name=".ui.Activity.FiltroFactura" />
-        <activity android:name=".ui.Activity.SmartSolar" />
+        <activity android:name=".ui.Activity.Practicas.Practica1.ListaFacturas" />
+        <activity android:name=".ui.Activity.Practicas.Practica1.FiltroFactura" />
+        <activity android:name=".ui.Activity.Practicas.Practica2.SmartSolar" />
         <activity android:name=".ui.Activity.Firebase.SignUp" />
         <activity android:name=".ui.Activity.Firebase.LogIn" />
         <activity android:name=".ui.Activity.Firebase.ForgotPassword" />

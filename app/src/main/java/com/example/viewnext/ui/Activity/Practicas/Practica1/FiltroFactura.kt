@@ -1,4 +1,4 @@
-package com.example.viewnext.ui.Activity
+package com.example.viewnext.ui.Activity.Practicas.Practica1
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.DatePicker

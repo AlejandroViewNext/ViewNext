@@ -1,4 +1,4 @@
-package com.example.viewnext.domain.retrofit
+package com.example.viewnext.data.retrofit
 
 class Factura {
     data class Factura(

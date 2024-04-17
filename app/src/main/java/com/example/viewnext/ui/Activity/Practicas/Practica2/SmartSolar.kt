@@ -1,4 +1,4 @@
-package com.example.viewnext.ui.Activity
+package com.example.viewnext.ui.Activity.Practicas.Practica2
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.viewnext.ui.Activity.adapter.PagerAdapter
 import com.example.viewnext.R
+import com.example.viewnext.ui.Activity.Principal
 import com.google.android.material.appbar.MaterialToolbar
 
 class SmartSolar : AppCompatActivity() {

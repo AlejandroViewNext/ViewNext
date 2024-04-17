@@ -1,4 +1,4 @@
-package com.example.viewnext.domain.room
+package com.example.viewnext.data.room
 
 import retrofit2.Call
 import retrofit2.http.GET

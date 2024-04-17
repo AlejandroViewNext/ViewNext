@@ -1,4 +1,4 @@
-package com.example.viewnext.domain.room
+package com.example.viewnext.data.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
