@@ -39,6 +39,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-v140 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
+retrofit2-retrofit-mock = { module = "com.squareup.retrofit2:retrofit-mock", version.ref = "converterGson" }
 room-compiler = { module = "android.arch.persistence.room:compiler", version.ref = "runtime" }
 runtime = { module = "android.arch.persistence.room:runtime", version.ref = "runtime" }
 support-compat = { module = "com.android.support:support-compat", version.ref = "supportCompat" }

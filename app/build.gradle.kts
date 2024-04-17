@@ -52,7 +52,7 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.material.v140)
     kapt (libs.androidx.room.compiler)
-
+    androidTestImplementation (libs.retrofit2.retrofit.mock)
 
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
