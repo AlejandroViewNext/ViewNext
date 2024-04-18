@@ -1,12 +1,7 @@
 package com.example.viewnext.ui.Activity.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.viewnext.domain.retrofit.Factura
 import com.example.viewnext.ui.Activity.model.FacturaRepository
-import kotlinx.coroutines.*
-import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.launch
 
 class FacturaViewModel(private val repository: FacturaRepository) : ViewModel() {
 /*

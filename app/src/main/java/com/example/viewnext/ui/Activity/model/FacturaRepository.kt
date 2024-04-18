@@ -1,9 +1,7 @@
 package com.example.viewnext.ui.Activity.model
 
-import com.example.viewnext.domain.retrofit.Factura
-import com.example.viewnext.domain.retrofit.FacturaApiService
-import com.example.viewnext.domain.room.FacturaDao
-import com.example.viewnext.domain.room.FacturaEntity
+import com.example.viewnext.data.retrofit.FacturaApiService
+import com.example.viewnext.data.room.FacturaDao
 
 class FacturaRepository(private val apiService: FacturaApiService, private val facturaDao: FacturaDao) {
 /*

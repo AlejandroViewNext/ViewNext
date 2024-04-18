@@ -49,7 +49,7 @@ class ListaFacturas : AppCompatActivity() {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://viewnextandroid.wiremockapi.cloud/")
+            .baseUrl("https://viewnextandroid4.wiremockapi.cloud/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
