@@ -1,10 +1,10 @@
 package com.example.viewnext.data.retrofit
 
-class Factura {
+class Facturas {
     data class Factura(
-        val fecha: String,
+        val descEstado: String,
         val importeOrdenacion: Double,
-        val descEstado: String
+        val fecha: String
     )
 
     data class ApiResponse(

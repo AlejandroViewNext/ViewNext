@@ -11,7 +11,7 @@ import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class FacturasAdapter(private val facturas: List<Factura.Factura>, private val clickListener: ListaFacturas) : RecyclerView.Adapter<FacturasAdapter.FacturaViewHolder>() {
+class FacturasAdapter(private val facturas: List<Facturas.Factura>, private val clickListener: ListaFacturas) : RecyclerView.Adapter<FacturasAdapter.FacturaViewHolder>() {
 
     class FacturaViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val tvFecha: TextView = view.findViewById(R.id.tvFecha)

@@ -52,8 +52,12 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.material.v140)
     kapt (libs.androidx.room.compiler)
-    androidTestImplementation (libs.retrofit2.retrofit.mock)
 
+
+    // RetroMock
+    implementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
+
+    implementation ("co.infinum:retromock:1.1.0")
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
