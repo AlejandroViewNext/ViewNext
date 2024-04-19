@@ -17,6 +17,7 @@ constraintlayout = "2.1.4"
 materialVersion = "1.4.0"
 mockwebserver = "4.9.0"
 retromock = "0.3.1"
+retromockVersion = "1.1.0"
 roomRuntime = "2.6.1"
 runtime = "1.1.1"
 supportCompat = "28.0.0"
@@ -28,6 +29,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 compiler = { module = "android.arch.lifecycle:compiler", version.ref = "lifecycleExtensions" }  # Cambiado desde "extensions"
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+infinum-retromock = { module = "co.infinum:retromock", version.ref = "retromockVersion" }
 jrange-seek-bar = { module = "com.jaygoo.widget:jrange-seek-bar", version.ref = "jrangeSeekBar" }
 lifecycleExtensions = { module = "android.arch.lifecycle:extensions", version.ref = "lifecycleExtensions" }  # Cambiado desde "extensions"
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }

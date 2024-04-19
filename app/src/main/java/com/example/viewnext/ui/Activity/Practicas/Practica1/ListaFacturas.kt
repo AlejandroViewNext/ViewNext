@@ -1,11 +1,11 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.infinum.retromock.Retromock
@@ -32,7 +32,7 @@ class ListaFacturas : AppCompatActivity() {
     private lateinit var adapter: FacturasAdapter
     private lateinit var facturasDao: FacturaDao
     // private lateinit var service: FacturaApiService
-   private lateinit var service: RetroMockFacturaApiService
+    private lateinit var service: RetroMockFacturaApiService
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,32 +51,23 @@ class ListaFacturas : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://viewnextandroid4.wiremockapi.cloud/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
         // service = retrofit.create(FacturaApiService::class.java)
-
 
         val retromock: Retromock = Retromock.Builder()
             .retrofit(retrofit)
-            //.defaultBodyFactory(ResourceBodyFactory())
             .build()
 
-           service = retromock.create(RetroMockFacturaApiService::class.java)
-
-
+        service = retromock.create(RetroMockFacturaApiService::class.java)
 
         loadFacturas()
     }
 
     private fun loadFacturas() {
-
-      service.getFacturas().enqueue(object : Callback<Facturas.ApiResponse> {
+        service.getFacturas().enqueue(object : Callback<Facturas.ApiResponse> {
             override fun onResponse(call: Call<Facturas.ApiResponse>, response: Response<Facturas.ApiResponse>) {
                 if (response.isSuccessful) {
                     facturasApiResponse = (response.body()?.facturas ?: emptyList()) as List<Facturas.Factura>
@@ -84,7 +75,6 @@ class ListaFacturas : AppCompatActivity() {
                     recyclerView.adapter = adapter
                     Toast.makeText(applicationContext, "Todo correcto", Toast.LENGTH_SHORT).show()
 
-                    // Insertar las facturas en la base de datos Room
                     GlobalScope.launch {
                         facturasDao.deleteAllFacturas()
                         facturasApiResponse.forEach { factura ->
@@ -97,12 +87,17 @@ class ListaFacturas : AppCompatActivity() {
                             )
                         }
                     }
+                } else {
+                    // Manejo de errores si la respuesta no es exitosa
+                    Log.e("Error", "Respuesta no exitosa: ${response.code()}")
+                    Toast.makeText(applicationContext, "Error al cargar los datos", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<Facturas.ApiResponse>, t: Throwable) {
+                // Manejo de errores en la solicitud
+                Log.e("Error", "Error en la solicitud: ${t.message}", t)
                 Toast.makeText(applicationContext, "Error al cargar los datos", Toast.LENGTH_LONG).show()
-                Log.d("ERROR", t.toString())
             }
         })
     }

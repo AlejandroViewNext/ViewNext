@@ -55,9 +55,9 @@ dependencies {
 
 
     // RetroMock
-    implementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
+    implementation (libs.retrofit2.retrofit.mock)
 
-    implementation ("co.infinum:retromock:1.1.0")
+    implementation (libs.infinum.retromock)
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
