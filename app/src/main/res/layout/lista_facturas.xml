@@ -6,9 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <!-- Toolbar -->
-
-    <!-- Contenido principal -->
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -18,7 +15,6 @@
         android:elevation="4dp"
         app:titleTextColor="#7BC334"
         app:title="Consumo"
-
         app:navigationIcon="@drawable/arrow_left"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
@@ -27,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Retromock"
-            android:checked="true"
+            android:checked="false"
             android:layout_marginLeft="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

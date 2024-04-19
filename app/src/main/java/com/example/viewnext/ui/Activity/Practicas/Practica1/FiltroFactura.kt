@@ -1,7 +1,9 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.DatePicker
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.viewnext.R
@@ -18,6 +20,13 @@ class FiltroFactura : AppCompatActivity() {
         val slider = findViewById<Slider>(R.id.slider)
         val rangeSelectedText = findViewById<TextView>(R.id.range_selected_text)
 
+        val boton_esquina = findViewById<ImageButton>(R.id.boton_esquina)
+
+        boton_esquina.setOnClickListener {
+            val intent = Intent(this, ListaFacturas::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+        }
         // Escuchar cambios en el Slider
         slider.addOnChangeListener { _, value, _ ->
             // Actualizar el texto para mostrar el valor seleccionado

@@ -1,26 +1,28 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import co.infinum.retromock.Retromock
 import com.example.viewnext.R
 import com.example.viewnext.data.retrofit.FacturaApiService
 import com.example.viewnext.data.retrofit.Facturas
 import com.example.viewnext.data.retrofit.FacturasAdapter
 import com.example.viewnext.data.retromock.ResourceBodyFactory
-
 import com.example.viewnext.data.retromock.RetroMockFacturaApiService
 import com.example.viewnext.data.room.AppDatabase
 import com.example.viewnext.data.room.FacturaDao
 import com.example.viewnext.data.room.FacturaEntity
+import com.example.viewnext.ui.Activity.Principal
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -29,6 +31,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class ListaFacturas : AppCompatActivity() {
 
@@ -42,22 +45,31 @@ class ListaFacturas : AppCompatActivity() {
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.lista_facturas)
-        recyclerView = findViewById(R.id.recyclerViewFacturas)
+        setContentView(com.example.viewnext.R.layout.lista_facturas)
+        recyclerView = findViewById(com.example.viewnext.R.id.recyclerViewFacturas)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        val toolbar = findViewById<MaterialToolbar>(com.example.viewnext.R.id.toolbar)
+        setSupportActionBar(toolbar)
 
+        toolbar.setOnClickListener {
+            // Iniciar la actividad Principal
+            val intent = Intent(this@ListaFacturas, Principal::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+        }
         val database = AppDatabase.getDatabase(applicationContext)
         facturasDao = database.facturaDao()
-        val switchRetrofit: Switch = findViewById(R.id.switch_retrofit)
+        val switchRetrofit: Switch = findViewById(com.example.viewnext.R.id.switch_retrofit)
 
         setupRetrofit() // Inicialmente utilizamos Retrofit
         switchRetrofit.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                setupRetrofit()
-                loadFacturas()// Cambiar a Retrofit
-            } else {
                 setupRetroMock()
                 loadFacturas2()// Cambiar a RetroMock
+            } else {
+                setupRetrofit()
+                loadFacturas()// Cambiar a Retrofit
+
             }
             // Cargar facturas con la implementación seleccionada
         }
