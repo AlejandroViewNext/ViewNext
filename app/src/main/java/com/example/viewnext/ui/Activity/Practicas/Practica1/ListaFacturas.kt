@@ -8,10 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import co.infinum.retromock.Retromock
 import com.example.viewnext.R
 import com.example.viewnext.data.retrofit.Facturas
 import com.example.viewnext.data.retrofit.FacturasAdapter
+import com.example.viewnext.data.retromock.ResourceBodyFactory
+
 import com.example.viewnext.data.retromock.RetroMockFacturaApiService
 import com.example.viewnext.data.room.AppDatabase
 import com.example.viewnext.data.room.FacturaDao
@@ -24,6 +27,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+
 
 class ListaFacturas : AppCompatActivity() {
 
@@ -57,14 +62,16 @@ class ListaFacturas : AppCompatActivity() {
             .build()
         // service = retrofit.create(FacturaApiService::class.java)
 
-        val retromock: Retromock = Retromock.Builder()
+        val retromock = Retromock.Builder()
             .retrofit(retrofit)
+            .defaultBodyFactory(ResourceBodyFactory())
             .build()
 
         service = retromock.create(RetroMockFacturaApiService::class.java)
 
         loadFacturas()
     }
+
 
     private fun loadFacturas() {
         service.getFacturas().enqueue(object : Callback<Facturas.ApiResponse> {
