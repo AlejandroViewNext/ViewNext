@@ -8,6 +8,7 @@ import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas
@@ -22,6 +23,7 @@ class Principal  : AppCompatActivity() {
         setContentView(R.layout.principal)
         val practica1: LinearLayout = findViewById(R.id.practica1)
         val arrowButton1: ImageButton = findViewById(R.id.arrowButton)
+
 
 
         val btn_open_external_browser = findViewById<Button>(R.id.btn_open_external_browser)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,8 +22,19 @@
         app:navigationIcon="@drawable/arrow_left"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
+        <Switch
+            android:id="@+id/switch_retrofit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retromock"
+            android:checked="true"
+            android:layout_marginLeft="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_marginTop="8dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <!-- Botón de la derecha -->
         <ImageButton
             android:id="@+id/btnFiltro"
             android:layout_width="60dp"
@@ -31,6 +43,8 @@
             android:padding="8dp"
             android:backgroundTint="#00FFFFFF"
             android:src="@drawable/filtro" />
+
+
     </com.google.android.material.appbar.MaterialToolbar>
     <TextView
         android:id="@+id/tvTitle"
