@@ -1,12 +1,9 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 
-
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.Switch
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,23 +29,33 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class ListaFacturas : AppCompatActivity() {
 
     private lateinit var facturasApiResponse: List<Facturas.Factura>
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FacturasAdapter
     private lateinit var facturasDao: FacturaDao
-    private  lateinit var service: FacturaApiService
-    private  lateinit var service2: RetroMockFacturaApiService
+    private lateinit var service: FacturaApiService
+    private lateinit var service2: RetroMockFacturaApiService
+
+    // Variables para almacenar los filtros
+    private var fechaDesde = ""
+    private var fechaHasta = ""
+    private var importeMinimo = 0
+    private var importeMaximo = Int.MAX_VALUE
+    private var pagadas = false
+    private var anuladas = false
+    private var cuotaFija = false
+    private var pendientesPago = false
+    private var planPago = false
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.viewnext.R.layout.lista_facturas)
-        recyclerView = findViewById(com.example.viewnext.R.id.recyclerViewFacturas)
+        setContentView(R.layout.lista_facturas)
+        recyclerView = findViewById(R.id.recyclerViewFacturas)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val toolbar = findViewById<MaterialToolbar>(com.example.viewnext.R.id.toolbar)
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         toolbar.setOnClickListener {
@@ -57,21 +64,21 @@ class ListaFacturas : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
+
         val database = AppDatabase.getDatabase(applicationContext)
         facturasDao = database.facturaDao()
-        val switchRetrofit: Switch = findViewById(com.example.viewnext.R.id.switch_retrofit)
 
+        val switchRetrofit: Switch = findViewById(R.id.switch_retrofit)
         setupRetrofit() // Inicialmente utilizamos Retrofit
+
         switchRetrofit.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 setupRetroMock()
-                loadFacturas2()// Cambiar a RetroMock
+                loadFacturas2() // Cambiar a RetroMock
             } else {
                 setupRetrofit()
-                loadFacturas()// Cambiar a Retrofit
-
+                loadFacturas() // Cambiar a Retrofit
             }
-            // Cargar facturas con la implementación seleccionada
         }
 
         val btnFiltro = findViewById<ImageButton>(R.id.btnFiltro)
@@ -79,6 +86,20 @@ class ListaFacturas : AppCompatActivity() {
             val intent = Intent(this, FiltroFactura::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+        }
+
+        // Obtener los filtros pasados desde FiltroFactura
+        val extras = intent.extras
+        extras?.let {
+            fechaDesde = it.getString("fechaDesde", "")
+            fechaHasta = it.getString("fechaHasta", "")
+            importeMinimo = it.getInt("importeMinimo", 0)
+            importeMaximo = it.getInt("importeMaximo", Int.MAX_VALUE)
+            pagadas = it.getBoolean("pagadas", false)
+            anuladas = it.getBoolean("anuladas", false)
+            cuotaFija = it.getBoolean("cuotaFija", false)
+            pendientesPago = it.getBoolean("pendientesPago", false)
+            planPago = it.getBoolean("planPago", false)
         }
 
         loadFacturas() // Cargar facturas inicialmente
@@ -104,17 +125,22 @@ class ListaFacturas : AppCompatActivity() {
         service2 = retromock.create(RetroMockFacturaApiService::class.java)
     }
 
-
-
     private fun loadFacturas() {
         service.getFacturas().enqueue(object : Callback<Facturas.ApiResponse> {
-            override fun onResponse(call: Call<Facturas.ApiResponse>, response: Response<Facturas.ApiResponse>) {
+            override fun onResponse(
+                call: Call<Facturas.ApiResponse>,
+                response: Response<Facturas.ApiResponse>
+            ) {
                 if (response.isSuccessful) {
                     facturasApiResponse = response.body()?.facturas ?: emptyList()
-                    adapter = FacturasAdapter(facturasApiResponse, this@ListaFacturas)
-                    recyclerView.adapter = adapter
-                    Toast.makeText(applicationContext, "Vista con retrofit", Toast.LENGTH_SHORT).show()
+                    applyFiltersAndLoadAdapter()
+                    Toast.makeText(
+                        applicationContext,
+                        "Vista con retrofit",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
+                    // Guardar las facturas en la base de datos local
                     GlobalScope.launch {
                         facturasDao.deleteAllFacturas()
                         facturasApiResponse.forEach { factura ->
@@ -131,20 +157,31 @@ class ListaFacturas : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Facturas.ApiResponse>, t: Throwable) {
-                Toast.makeText(applicationContext, "Error al cargar retrofit", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Error al cargar retrofit",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }
 
     private fun loadFacturas2() {
         service2.getFacturas().enqueue(object : Callback<Facturas.ApiResponse> {
-            override fun onResponse(call: Call<Facturas.ApiResponse>, response: Response<Facturas.ApiResponse>) {
+            override fun onResponse(
+                call: Call<Facturas.ApiResponse>,
+                response: Response<Facturas.ApiResponse>
+            ) {
                 if (response.isSuccessful) {
                     facturasApiResponse = response.body()?.facturas ?: emptyList()
-                    adapter = FacturasAdapter(facturasApiResponse, this@ListaFacturas)
-                    recyclerView.adapter = adapter
-                    Toast.makeText(applicationContext, "Vista con retromock", Toast.LENGTH_SHORT).show()
+                    applyFiltersAndLoadAdapter()
+                    Toast.makeText(
+                        applicationContext,
+                        "Vista con retromock",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
+                    // Guardar las facturas en la base de datos local
                     GlobalScope.launch {
                         facturasDao.deleteAllFacturas()
                         facturasApiResponse.forEach { factura ->
@@ -161,9 +198,36 @@ class ListaFacturas : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Facturas.ApiResponse>, t: Throwable) {
-                Toast.makeText(applicationContext, "Error al cargar retromock", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Error al cargar retromock",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
+    }
+
+    private fun applyFiltersAndLoadAdapter() {
+        // Filtrar las facturas según los criterios
+        val facturasFiltradas = facturasApiResponse.filter { factura ->
+            val fechaFactura = factura.fecha
+            val importeFactura = factura.importeOrdenacion
+            val estadoFactura = factura.descEstado
+
+            val fechaDentroRango = fechaFactura in fechaDesde..fechaHasta
+            val importeDentroRango: Boolean = importeFactura >= importeMinimo && importeFactura <= importeMaximo
+
+
+            val estadoCoincide = estadoFactura in listOf(
+                "Pagada", "Anulada", "Cuota Fija", "Pendientes de Pago", "Plan de Pago"
+            )
+
+            fechaDentroRango && importeDentroRango && estadoCoincide
+        }
+
+        // Actualizar el adaptador con las facturas filtradas
+        adapter = FacturasAdapter(facturasFiltradas, this@ListaFacturas)
+        recyclerView.adapter = adapter
     }
 
     fun onItemFacturaClicked() {
