@@ -14,6 +14,7 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.ImageButton
+import android.widget.ImageView
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.Principal
 
@@ -25,8 +26,16 @@ class LogIn: AppCompatActivity()  {
         setContentView(R.layout.login)
 
         val botonEntrar = findViewById<Button>(R.id.botonEntrar)
-
+        val imagenLogo = findViewById<ImageView>(R.id.imageView)
         val botonRegistro = findViewById<Button>(R.id.botonRegistrar)
+
+        imagenLogo.setOnClickListener {
+
+            val intent = Intent(this, Principal::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+        }
+
         botonRegistro.setOnClickListener {
 
             val intent = Intent(this, SignUp::class.java)

@@ -127,15 +127,11 @@ class ListaFacturas : AppCompatActivity() {
                             )
                         }
                     }
-                } else {
-                    Log.e("Error", "Respuesta no exitosa: ${response.code()}")
-                    Toast.makeText(applicationContext, "Error al cargar los datos", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<Facturas.ApiResponse>, t: Throwable) {
-                Log.e("Error", "Error en la solicitud: ${t.message}", t)
-                Toast.makeText(applicationContext, "Error al cargar los datos", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Error al cargar retrofit", Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -161,15 +157,11 @@ class ListaFacturas : AppCompatActivity() {
                             )
                         }
                     }
-                } else {
-                    Log.e("Error", "Respuesta no exitosa: ${response.code()}")
-                    Toast.makeText(applicationContext, "Error al cargar los datos", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<Facturas.ApiResponse>, t: Throwable) {
-                Log.e("Error", "Error en la solicitud: ${t.message}", t)
-                Toast.makeText(applicationContext, "Error al cargar los datos", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Error al cargar retromock", Toast.LENGTH_LONG).show()
             }
         })
     }
