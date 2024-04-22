@@ -11,9 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:navigationIconTint="#7BC334"
+        app:navigationIconTint="@color/verdePistacho"
         android:elevation="4dp"
-        app:titleTextColor="#7BC334"
+        app:titleTextColor="@color/verdePistacho"
         app:title="Consumo"
         app:navigationIcon="@drawable/arrow_left"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
@@ -62,7 +62,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFacturas"
             android:layout_width="374dp"
-            android:layout_height="633dp"
+            android:layout_height="707dp"
             android:scrollbars="vertical" />
 
         <ProgressBar

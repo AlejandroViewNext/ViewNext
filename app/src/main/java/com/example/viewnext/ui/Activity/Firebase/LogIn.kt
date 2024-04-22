@@ -105,7 +105,7 @@ class LogIn: AppCompatActivity()  {
     private fun showAlert(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("se ha producido un error al registrarse")
+        builder.setMessage("se ha producido un error al iniciar sesion")
         builder.setPositiveButton("Aceptar",null)
         val dialog: AlertDialog= builder.create()
         dialog.show()
@@ -113,7 +113,7 @@ class LogIn: AppCompatActivity()  {
     private fun AlertCorreo(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("Correo electronico no valido o vacio")
+        builder.setMessage("Datos erroneos")
         builder.setPositiveButton("aceptar",null)
         val dialog: AlertDialog= builder.create()
         dialog.show()
@@ -121,7 +121,7 @@ class LogIn: AppCompatActivity()  {
     private fun AlertPassword(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("Contraseña vacia o no valida(debe tener al menos 6 caracteres, numeros y letras")
+        builder.setMessage("Datos erroneos")
         builder.setPositiveButton("Aceptar",null)
         val dialog: AlertDialog= builder.create()
         dialog.show()
