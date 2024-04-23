@@ -84,7 +84,7 @@ class ListaFacturas : AppCompatActivity() {
         val btnFiltro = findViewById<ImageButton>(R.id.btnFiltro)
         btnFiltro.setOnClickListener {
             val intent = Intent(this, FiltroFactura::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
             startActivity(intent)
         }
 
@@ -216,9 +216,14 @@ class ListaFacturas : AppCompatActivity() {
 
             val fechaDentroRango = fechaFactura in fechaDesde..fechaHasta
             val importeDentroRango: Boolean = importeFactura >= importeMinimo && importeFactura <= importeMaximo
-            val estadoCoincide = estadoFactura in listOf(
-                "pagadas", "anuladas", "cuotaFija", "pendientesPago", "planPago"
-            )
+            val estadoCoincide = when {
+                pagadas && estadoFactura.equals("Pagada", ignoreCase = true) -> true
+                anuladas && estadoFactura.equals("Anulada", ignoreCase = true) -> true
+                cuotaFija && estadoFactura.equals("Cuota Fija", ignoreCase = true) -> true
+                pendientesPago && estadoFactura.equals("Pendiente de pago", ignoreCase = true) -> true
+                planPago && estadoFactura.equals("Plan de Pago", ignoreCase = true) -> true
+                else -> false
+            }
 
             // Verificar si al menos una de las condiciones se cumple
             fechaDentroRango || importeDentroRango || estadoCoincide
