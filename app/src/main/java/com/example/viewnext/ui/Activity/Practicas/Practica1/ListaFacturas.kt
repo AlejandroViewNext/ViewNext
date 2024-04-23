@@ -39,10 +39,10 @@ class ListaFacturas : AppCompatActivity() {
     private lateinit var service2: RetroMockFacturaApiService
 
     // Variables para almacenar los filtros
-    private var fechaDesde = ""
-    private var fechaHasta = ""
+    private var fechaDesde = "07/02/2000"
+    private var fechaHasta = "07/02/2024"
     private var importeMinimo = 0
-    private var importeMaximo = Int.MAX_VALUE
+    private var importeMaximo = 300
     private var pagadas = false
     private var anuladas = false
     private var cuotaFija = false
@@ -91,8 +91,8 @@ class ListaFacturas : AppCompatActivity() {
         // Obtener los filtros pasados desde FiltroFactura
         val extras = intent.extras
         extras?.let {
-            fechaDesde = it.getString("fechaDesde", "")
-            fechaHasta = it.getString("fechaHasta", "")
+            fechaDesde = it.getString("fechaDesde", "07/02/2000")
+            fechaHasta = it.getString("fechaHasta", "07/02/2024")
             importeMinimo = it.getInt("importeMinimo", 0)
             importeMaximo = it.getInt("importeMaximo", Int.MAX_VALUE)
             pagadas = it.getBoolean("pagadas", false)
@@ -216,19 +216,20 @@ class ListaFacturas : AppCompatActivity() {
 
             val fechaDentroRango = fechaFactura in fechaDesde..fechaHasta
             val importeDentroRango: Boolean = importeFactura >= importeMinimo && importeFactura <= importeMaximo
-
-
             val estadoCoincide = estadoFactura in listOf(
-                "Pagada", "Anulada", "Cuota Fija", "Pendientes de Pago", "Plan de Pago"
+                "pagadas", "anuladas", "cuotaFija", "pendientesPago", "planPago"
             )
 
-            fechaDentroRango && importeDentroRango && estadoCoincide
+            // Verificar si al menos una de las condiciones se cumple
+            fechaDentroRango || importeDentroRango || estadoCoincide
         }
 
         // Actualizar el adaptador con las facturas filtradas
         adapter = FacturasAdapter(facturasFiltradas, this@ListaFacturas)
         recyclerView.adapter = adapter
     }
+
+
 
     fun onItemFacturaClicked() {
         showCustomAlertDialog()
