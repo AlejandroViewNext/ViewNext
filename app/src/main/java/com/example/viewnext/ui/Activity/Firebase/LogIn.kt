@@ -16,7 +16,7 @@ import android.text.method.PasswordTransformationMethod
 import android.widget.ImageButton
 import android.widget.ImageView
 import com.example.viewnext.R
-import com.example.viewnext.ui.Activity.Principal
+import com.example.viewnext.ui.Activity.Principal_Activity
 
 class LogIn: AppCompatActivity()  {
 
@@ -31,7 +31,7 @@ class LogIn: AppCompatActivity()  {
 
         imagenLogo.setOnClickListener {
 
-            val intent = Intent(this, Principal::class.java)
+            val intent = Intent(this, Principal_Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
@@ -94,7 +94,7 @@ class LogIn: AppCompatActivity()  {
 
                     if (it.isSuccessful){
 
-                            val intent = Intent(this, Principal::class.java)
+                            val intent = Intent(this, Principal_Activity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             startActivity(intent)
 

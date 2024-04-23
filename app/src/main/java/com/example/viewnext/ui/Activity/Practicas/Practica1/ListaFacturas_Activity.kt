@@ -18,9 +18,8 @@ import com.example.viewnext.data.retromock.RetroMockFacturaApiService
 import com.example.viewnext.data.room.AppDatabase
 import com.example.viewnext.data.room.FacturaDao
 import com.example.viewnext.data.room.FacturaEntity
-import com.example.viewnext.ui.Activity.Principal
+import com.example.viewnext.ui.Activity.Principal_Activity
 import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -29,7 +28,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ListaFacturas : AppCompatActivity() {
+class ListaFacturas_Activity : AppCompatActivity() {
 
     private lateinit var facturasApiResponse: List<Facturas.Factura>
     private lateinit var recyclerView: RecyclerView
@@ -49,7 +48,7 @@ class ListaFacturas : AppCompatActivity() {
     private var pendientesPago = false
     private var planPago = false
 
-    @OptIn(DelicateCoroutinesApi::class)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.lista_facturas)
@@ -60,7 +59,7 @@ class ListaFacturas : AppCompatActivity() {
 
         toolbar.setOnClickListener {
             // Iniciar la actividad Principal
-            val intent = Intent(this@ListaFacturas, Principal::class.java)
+            val intent = Intent(this@ListaFacturas_Activity, Principal_Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
@@ -83,7 +82,7 @@ class ListaFacturas : AppCompatActivity() {
 
         val btnFiltro = findViewById<ImageButton>(R.id.btnFiltro)
         btnFiltro.setOnClickListener {
-            val intent = Intent(this, FiltroFactura::class.java)
+            val intent = Intent(this, FiltroFactura_Activity::class.java)
 
             startActivity(intent)
         }
@@ -230,7 +229,7 @@ class ListaFacturas : AppCompatActivity() {
         }
 
         // Actualizar el adaptador con las facturas filtradas
-        adapter = FacturasAdapter(facturasFiltradas, this@ListaFacturas)
+        adapter = FacturasAdapter(facturasFiltradas, this@ListaFacturas_Activity)
         recyclerView.adapter = adapter
     }
 

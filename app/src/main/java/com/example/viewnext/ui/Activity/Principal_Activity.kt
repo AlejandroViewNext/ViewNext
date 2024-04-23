@@ -8,15 +8,14 @@ import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import com.example.viewnext.R
-import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas
-import com.example.viewnext.ui.Activity.Practicas.Practica2.SmartSolar
+import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas_Activity
+import com.example.viewnext.ui.Activity.Practicas.Practica2.SmartSolar_Activity
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 
-class Principal  : AppCompatActivity() {
+class Principal_Activity  : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class Principal  : AppCompatActivity() {
         }
         arrowButton1.setOnClickListener {
 
-            val intent = Intent(this, ListaFacturas::class.java)
+            val intent = Intent(this, ListaFacturas_Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
@@ -46,7 +45,7 @@ class Principal  : AppCompatActivity() {
         val arrowButton2: ImageButton = findViewById(R.id.arrowButton2)
         arrowButton2.setOnClickListener {
 
-            val intent = Intent(this, SmartSolar::class.java)
+            val intent = Intent(this, SmartSolar_Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }

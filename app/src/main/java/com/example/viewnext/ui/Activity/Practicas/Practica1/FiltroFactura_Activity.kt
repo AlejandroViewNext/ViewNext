@@ -11,14 +11,13 @@ import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import com.example.viewnext.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.slider.Slider
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FiltroFactura : AppCompatActivity() {
+class FiltroFactura_Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class FiltroFactura : AppCompatActivity() {
         val checkbox5 = findViewById<CheckBox>(R.id.checkbox5)
 
         botonEsquina.setOnClickListener {
-            val intent = Intent(this, ListaFacturas::class.java)
+            val intent = Intent(this, ListaFacturas_Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
@@ -71,7 +70,7 @@ class FiltroFactura : AppCompatActivity() {
             val pendientesPago = checkbox4.isChecked
             val planPago = checkbox5.isChecked
 
-            val intent = Intent(this, ListaFacturas::class.java)
+            val intent = Intent(this, ListaFacturas_Activity::class.java)
             intent.putExtra("fechaDesde", fechaDesde)
             intent.putExtra("fechaHasta", fechaHasta)
             intent.putExtra("importeMinimo", importeMinimo)
