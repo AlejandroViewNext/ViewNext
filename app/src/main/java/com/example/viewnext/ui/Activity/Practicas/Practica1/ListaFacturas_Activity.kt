@@ -37,7 +37,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
     private lateinit var service: FacturaApiService
     private lateinit var service2: RetroMockFacturaApiService
 
-    // Variables para almacenar los filtros
+
     private var fechaDesde = "07/02/2000"
     private var fechaHasta = "07/02/2024"
     private var importeMinimo = 0

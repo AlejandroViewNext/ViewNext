@@ -56,7 +56,23 @@ class FiltroFactura_Activity : AppCompatActivity() {
         }
 
         eliminarFiltros.setOnClickListener {
-            // Aquí puedes implementar la lógica para eliminar los filtros
+            eliminarFiltros.setOnClickListener {
+
+                checkbox1.isChecked = false
+                checkbox2.isChecked = false
+                checkbox3.isChecked = false
+                checkbox4.isChecked = false
+                checkbox5.isChecked = false
+
+
+                editTextDesde.text = "día/mes/año"
+                editTextHasta.text = "día/mes/año"
+                slider.value = slider.valueFrom
+
+
+                val defaultRangeText = " "
+                rangeSelectedText.text = defaultRangeText
+            }
         }
 
         filtrar.setOnClickListener {
@@ -82,20 +98,6 @@ class FiltroFactura_Activity : AppCompatActivity() {
             intent.putExtra("planPago", planPago)
             startActivity(intent)
 
-            // filtros seleccionados:
-            val mensaje = "Filtros aplicados:\n" +
-                    "Fecha desde: $fechaDesde\n" +
-                    "Fecha hasta: $fechaHasta\n" +
-                    "Importe mínimo: $importeMinimo\n" +
-                    "Importe máximo: $importeMaximo\n" +
-                    "Estado de las facturas:\n" +
-                    "  - Pagadas: $pagadas\n" +
-                    "  - Anuladas: $anuladas\n" +
-                    "  - Cuota fija: $cuotaFija\n" +
-                    "  - Pendientes de pago: $pendientesPago\n" +
-                    "  - Plan de pago: $planPago"
-
-            showFilterAlertDialog(mensaje)
         }
     }
 
@@ -117,14 +119,4 @@ class FiltroFactura_Activity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun showFilterAlertDialog(message: String) {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle("Filtros Aplicados")
-        alertDialogBuilder.setMessage(message)
-        alertDialogBuilder.setPositiveButton("Aceptar") { dialogInterface: DialogInterface, _: Int ->
-            dialogInterface.dismiss()
-        }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
-    }
 }

@@ -1,7 +1,7 @@
 {
-  "cau": "123456",
-  "estadoSolicitud": "Aprobada",
-  "tipoAutoconsumo": "Tipo 1",
-  "compensacionExcedentes": "Sí",
-  "potenciaInstalacion": "5 kW"
+  "cau": "Es00210000000001994LJ1FA000",
+  "estadoSolicitud": "No hemos recibido ninguna solicitud de autoconsumo",
+  "tipoAutoconsumo": "Con excedentes y comprensación Individual - Consumo",
+  "compensacionExcedentes": "Precio PVPC",
+  "potenciaInstalacion": "5 kWp"
 }
