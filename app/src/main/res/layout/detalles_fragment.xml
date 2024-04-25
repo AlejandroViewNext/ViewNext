@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-
-
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/group1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,25 +19,27 @@
             android:textSize="16sp"
             android:layout_marginBottom="5dp"/>
 
-        <EditText
+        <TextView
+            android:id="@+id/cauTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese el texto aquí"/>
+            android:text="Placeholder para CAU"
+            android:hint="Ingrese el texto aquí" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/group2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@id/group1"
-        android:layout_marginTop="20dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="485dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -47,36 +47,38 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:text="Estado solicitud alta de consumidor"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"/>
 
-            <EditText
+            <TextView
+                android:id="@+id/estadoTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Placeholder para Estado"
                 android:hint="Ingrese el texto aquí" />
 
         </LinearLayout>
 
         <ImageButton
-            android:layout_gravity="center"
-            android:layout_width="179dp"
+            android:layout_width="61dp"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
-            android:src="@drawable/info"/>
+            android:src="@drawable/info" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/group3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/group2"
-        android:layout_marginTop="20dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -85,22 +87,24 @@
             android:textSize="16sp"
             android:layout_marginBottom="5dp"/>
 
-        <EditText
+        <TextView
+            android:id="@+id/tipoAutoconsumoTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese el texto aquí"/>
+            android:text="Placeholder para Tipo de autoconsumo"
+            android:hint="Ingrese el texto aquí" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/group4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/group3"
-        android:layout_marginTop="20dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,21 +113,24 @@
             android:textSize="16sp"
             android:layout_marginBottom="5dp"/>
 
-        <EditText
+        <TextView
+            android:id="@+id/compensacionExcedentesTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese el texto aquí"/>
+            android:text="Placeholder para Compensación de excedentes"
+            android:hint="Ingrese el texto aquí" />
 
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/group5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/group4"
-        android:layout_marginTop="20dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -132,10 +139,12 @@
             android:textSize="16sp"
             android:layout_marginBottom="5dp"/>
 
-        <EditText
+        <TextView
+            android:id="@+id/potenciaInstalacionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese el texto aquí"/>
+            android:text="Placeholder para Potencia de instalación"
+            android:hint="Ingrese el texto aquí" />
 
     </LinearLayout>
 

@@ -52,6 +52,7 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.material.v140)
     kapt (libs.androidx.room.compiler)
+    implementation ("com.google.code.gson:gson:2.10.1")
 
 
     // RetroMock
