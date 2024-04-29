@@ -58,7 +58,6 @@ class ListaFacturas_Activity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         toolbar.setOnClickListener {
-            // Iniciar la actividad Principal
             val intent = Intent(this@ListaFacturas_Activity, Principal_Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
@@ -68,7 +67,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
         facturasDao = database.facturaDao()
 
         val switchRetrofit: Switch = findViewById(R.id.switch_retrofit)
-        setupRetrofit() // Inicialmente utilizamos Retrofit
+        setupRetrofit()
 
         switchRetrofit.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -87,7 +86,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Obtener los filtros pasados desde FiltroFactura
+
         val extras = intent.extras
         extras?.let {
             fechaDesde = it.getString("fechaDesde", "07/02/2000")

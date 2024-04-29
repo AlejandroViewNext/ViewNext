@@ -34,6 +34,7 @@ class LogIn: AppCompatActivity()  {
             val intent = Intent(this, Principal_Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
 
         botonRegistro.setOnClickListener {
@@ -41,6 +42,7 @@ class LogIn: AppCompatActivity()  {
             val intent = Intent(this, SignUp::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
 
         val textViewOlvidadoDatos = findViewById<TextView>(R.id.textViewOlvidadoDatos)
@@ -48,7 +50,9 @@ class LogIn: AppCompatActivity()  {
             val intent = Intent(this, ForgotPassword::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
+
         val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
         val botonMostrarContraseña = findViewById<ImageButton>(R.id.imageViewPassword)
         botonMostrarContraseña.setOnClickListener {
@@ -97,6 +101,7 @@ class LogIn: AppCompatActivity()  {
                             val intent = Intent(this, Principal_Activity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             startActivity(intent)
+                            finish()
 
                     }else{
                         showAlert()
