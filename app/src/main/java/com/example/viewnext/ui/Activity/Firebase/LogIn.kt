@@ -18,6 +18,7 @@ import android.widget.ImageView
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.Principal_Activity
 
+
 class LogIn: AppCompatActivity()  {
 
 
@@ -85,7 +86,7 @@ class LogIn: AppCompatActivity()  {
 
     }
     private fun setup(){
-        title= "Registro"
+        title= "Inicio"
         val botonEntrar = findViewById<Button>(R.id.botonEntrar)
         val editTextUsuario = findViewById<EditText>(R.id.editTextUsuario)
         val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)

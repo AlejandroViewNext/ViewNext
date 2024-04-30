@@ -1,77 +1,54 @@
 package com.example.viewnext.ui.Activity
-import android.content.Intent
-import android.net.Uri
+
 import android.os.Bundle
 import android.view.View
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
-import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas_Activity
-import com.example.viewnext.ui.Activity.Practicas.Practica2.SmartSolar_Activity
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.example.viewnext.ui.Activity.viewmodel.PrincipalViewModel
 
-class Principal_Activity  : AppCompatActivity() {
+
+class Principal_Activity : AppCompatActivity() {
+
+    private lateinit var viewModel: PrincipalViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.principal)
+
+        viewModel = ViewModelProvider(this).get(PrincipalViewModel::class.java)
+
         val practica1: LinearLayout = findViewById(R.id.practica1)
         val arrowButton1: ImageButton = findViewById(R.id.arrowButton)
-
-
-
         val btn_open_external_browser = findViewById<Button>(R.id.btn_open_external_browser)
         val btn_open_webview = findViewById<Button>(R.id.btn_open_webview)
 
         btn_open_external_browser.setOnClickListener {
-            openExternalBrowser()
+            viewModel.openExternalBrowser(this)
         }
 
         btn_open_webview.setOnClickListener {
-            openWebview()
+            viewModel.openWebview(this)
         }
-        arrowButton1.setOnClickListener {
 
-            val intent = Intent(this, ListaFacturas_Activity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
+        arrowButton1.setOnClickListener {
+            viewModel.openListaFacturasActivity(this)
         }
 
         val arrowButton2: ImageButton = findViewById(R.id.arrowButton2)
         arrowButton2.setOnClickListener {
-
-            val intent = Intent(this, SmartSolar_Activity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
+            viewModel.openSmartSolarActivity(this)
         }
 
-    //remote config
-        practica1.visibility= View.INVISIBLE
-        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{task ->
-            if(task.isSuccessful){
-                val showPractica : Boolean = Firebase.remoteConfig.getBoolean("show_menu")
-                if (showPractica){
-                    practica1.visibility= View.VISIBLE
-                }
-            }
-
+        // Remote Config
+        val showPractica = viewModel.checkPracticaVisibility(this)
+        if (showPractica) {
+            practica1.visibility = View.VISIBLE
+        } else {
+            practica1.visibility = View.INVISIBLE
         }
-
-    }
-    private fun openExternalBrowser() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.iberdrola.es"))
-        startActivity(intent)
-    }
-
-    private fun openWebview() {
-        val webView = WebView(this)
-        setContentView(webView)
-        webView.webViewClient = WebViewClient()
-        webView.loadUrl("https://www.iberdrola.es")
     }
 }
