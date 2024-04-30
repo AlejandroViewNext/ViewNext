@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.Firebase.LogIn
+
+
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -16,9 +18,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
         Handler().postDelayed({
-
             val intent = Intent(this, LogIn::class.java)
             startActivity(intent)
             finish()

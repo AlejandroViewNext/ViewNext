@@ -13,133 +13,126 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.text.method.TransformationMethod
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.Principal_Activity
+import com.example.viewnext.ui.Activity.viewmodel.firebase.LogInViewModel
 
 
 class LogIn: AppCompatActivity()  {
-
+    private lateinit var viewModel: LogInViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
+
+        viewModel = ViewModelProvider(this).get(LogInViewModel::class.java)
 
         val botonEntrar = findViewById<Button>(R.id.botonEntrar)
         val imagenLogo = findViewById<ImageView>(R.id.imageView)
         val botonRegistro = findViewById<Button>(R.id.botonRegistrar)
 
         imagenLogo.setOnClickListener {
-
-            val intent = Intent(this, Principal_Activity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            finish()
+            navigateToPrincipalActivity()
         }
 
         botonRegistro.setOnClickListener {
-
-            val intent = Intent(this, SignUp::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            finish()
+            navigateToSignUp()
         }
 
         val textViewOlvidadoDatos = findViewById<TextView>(R.id.textViewOlvidadoDatos)
         textViewOlvidadoDatos.setOnClickListener {
-            val intent = Intent(this, ForgotPassword::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            finish()
+            navigateToForgotPassword()
         }
 
         val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
         val botonMostrarContraseña = findViewById<ImageButton>(R.id.imageViewPassword)
         botonMostrarContraseña.setOnClickListener {
-
-            if (editTextContraseña.transformationMethod == PasswordTransformationMethod.getInstance()) {
-
-                editTextContraseña.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            } else {
-
-                editTextContraseña.transformationMethod = PasswordTransformationMethod.getInstance()
-            }
+            val newTransformationMethod = viewModel.togglePasswordVisibility(editTextContraseña.transformationMethod)
+            editTextContraseña.transformationMethod = newTransformationMethod as TransformationMethod?
         }
+
         setup()
 
-        val colorFake= ContextCompat.getColor(this, R.color.black)
-        val colorFake2= ContextCompat.getColor(this, R.color.white)
-        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{ task ->
-            if(task.isSuccessful){
-                val showColor : Boolean = Firebase.remoteConfig.getBoolean("Show_Colors")
-                if (showColor){
-                    botonRegistro.setBackgroundColor(colorFake)
-                    botonEntrar.setBackgroundColor(colorFake)
-                            botonRegistro.setTextColor(colorFake2)
-                            botonEntrar.setTextColor(colorFake2)
-                            botonEntrar.setText("Ya tengo una cuenta")
-                            botonRegistro.setText("Terminar Registro")
-                }
-            }
-        }
-
+        setupRemoteConfig()
     }
-    private fun setup(){
-        title= "Inicio"
+
+    private fun setup() {
+        title = "Inicio"
         val botonEntrar = findViewById<Button>(R.id.botonEntrar)
         val editTextUsuario = findViewById<EditText>(R.id.editTextUsuario)
         val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
 
-
         botonEntrar.setOnClickListener {
-            if(editTextUsuario.text.isNotEmpty()&& editTextContraseña.text.isNotEmpty()){
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(editTextUsuario.text.toString(),
-                    editTextContraseña.text.toString()).addOnCompleteListener {
+            val email = editTextUsuario.text.toString()
+            val password = editTextContraseña.text.toString()
 
-                    if (it.isSuccessful){
-
-                            val intent = Intent(this, Principal_Activity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            startActivity(intent)
-                            finish()
-
-                    }else{
-                        showAlert()
+            if(email.isNotEmpty() && password.isNotEmpty()) {
+                viewModel.signInWithEmailAndPassword(email, password) { isSuccess ->
+                    if (isSuccess) {
+                        navigateToPrincipalActivity()
+                    } else {
+                        showAlert("Error", "Se ha producido un error al iniciar sesión")
                     }
                 }
-            }else if(editTextContraseña.text.isEmpty()){
-                AlertPassword()
-            }
-            else if(editTextUsuario.text.isEmpty()){
-                AlertCorreo()
+            } else if (password.isEmpty()) {
+                showAlert("Error", "Datos incorrectos")
+            } else if (email.isEmpty()) {
+                showAlert("Error", "Datos incorrectos")
             }
         }
     }
 
-    private fun showAlert(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("se ha producido un error al iniciar sesion")
-        builder.setPositiveButton("Aceptar",null)
-        val dialog: AlertDialog= builder.create()
-        dialog.show()
-    }
-    private fun AlertCorreo(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("Datos erroneos")
-        builder.setPositiveButton("aceptar",null)
-        val dialog: AlertDialog= builder.create()
-        dialog.show()
-    }
-    private fun AlertPassword(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("Datos erroneos")
-        builder.setPositiveButton("Aceptar",null)
-        val dialog: AlertDialog= builder.create()
-        dialog.show()
+    private fun setupRemoteConfig() {
+        val colorFake = ContextCompat.getColor(this, R.color.black)
+        val colorFake2 = ContextCompat.getColor(this, R.color.white)
+        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{ task ->
+            if(task.isSuccessful){
+                val showColor : Boolean = Firebase.remoteConfig.getBoolean("Show_Colors")
+                if (showColor){
+                    val botonRegistro = findViewById<Button>(R.id.botonRegistrar)
+                    val botonEntrar = findViewById<Button>(R.id.botonEntrar)
+                    botonRegistro.setBackgroundColor(colorFake)
+                    botonEntrar.setBackgroundColor(colorFake)
+                    botonRegistro.setTextColor(colorFake2)
+                    botonEntrar.setTextColor(colorFake2)
+                    botonEntrar.setText("Ya tengo una cuenta")
+                    botonRegistro.setText("Terminar Registro")
+                }
+            }
+        }
     }
 
+    private fun navigateToPrincipalActivity() {
+        val intent = Intent(this, Principal_Activity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToSignUp() {
+        val intent = Intent(this, SignUp::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToForgotPassword() {
+        val intent = Intent(this, ForgotPassword::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun showAlert(title: String, message: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setPositiveButton("Aceptar", null)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
 }
