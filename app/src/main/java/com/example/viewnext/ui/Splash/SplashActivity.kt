@@ -1,11 +1,13 @@
 package com.example.viewnext.ui.Splash
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.Firebase.LogIn
+import com.example.viewnext.ui.Activity.Principal_Activity
 
 
 import com.google.firebase.ktx.Firebase
@@ -19,8 +21,16 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Handler().postDelayed({
-            val intent = Intent(this, LogIn::class.java)
-            startActivity(intent)
+            val username = getUsernameFromSharedPreferences()
+            if (username != null) {
+                // Si hay un nombre de usuario guardado, inicia sesión automáticamente
+                val intent = Intent(this, Principal_Activity::class.java)
+                startActivity(intent)
+            } else {
+                // Si no hay un nombre de usuario guardado, lleva al usuario a la pantalla de inicio de sesión
+                val intent = Intent(this, LogIn::class.java)
+                startActivity(intent)
+            }
             finish()
         }, SPLASH_TIME_OUT)
 
@@ -31,5 +41,10 @@ val configSettings= remoteConfigSettings {
 val firebaseConfig: FirebaseRemoteConfig= Firebase.remoteConfig
         firebaseConfig.setConfigSettingsAsync(configSettings)
 firebaseConfig.setDefaultsAsync(mapOf("show_menu" to false,"Show_Colors" to false))
+    }
+
+    private fun getUsernameFromSharedPreferences(): String? {
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("username", null)
     }
 }

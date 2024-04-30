@@ -1,5 +1,6 @@
 package com.example.viewnext.ui.Activity.Firebase
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,6 +15,7 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.text.method.TransformationMethod
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +33,6 @@ class LogIn: AppCompatActivity()  {
 
         viewModel = ViewModelProvider(this).get(LogInViewModel::class.java)
 
-        val botonEntrar = findViewById<Button>(R.id.botonEntrar)
         val imagenLogo = findViewById<ImageView>(R.id.imageView)
         val botonRegistro = findViewById<Button>(R.id.botonRegistrar)
 
@@ -65,7 +66,7 @@ class LogIn: AppCompatActivity()  {
         val botonEntrar = findViewById<Button>(R.id.botonEntrar)
         val editTextUsuario = findViewById<EditText>(R.id.editTextUsuario)
         val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
-
+        val checkBoxRecordar = findViewById<CheckBox>(R.id.checkBoxRecordar)
         botonEntrar.setOnClickListener {
             val email = editTextUsuario.text.toString()
             val password = editTextContraseña.text.toString()
@@ -73,6 +74,9 @@ class LogIn: AppCompatActivity()  {
             if(email.isNotEmpty() && password.isNotEmpty()) {
                 viewModel.signInWithEmailAndPassword(email, password) { isSuccess ->
                     if (isSuccess) {
+                        if (checkBoxRecordar.isChecked) {
+                            saveUsernameToSharedPreferences(email)
+                        }
                         navigateToPrincipalActivity()
                     } else {
                         showAlert("Error", "Se ha producido un error al iniciar sesión")
@@ -134,5 +138,11 @@ class LogIn: AppCompatActivity()  {
         builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
+    }
+    private fun saveUsernameToSharedPreferences(username: String) {
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("username", username)
+        editor.apply()
     }
 }

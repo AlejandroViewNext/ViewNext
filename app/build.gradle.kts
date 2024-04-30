@@ -58,7 +58,7 @@ dependencies {
 
     // RetroMock
     implementation (libs.retrofit2.retrofit.mock)
-
+    implementation("com.google.android.gms:play-services-auth:21.1.0")
     implementation (libs.infinum.retromock)
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")

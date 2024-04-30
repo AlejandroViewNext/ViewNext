@@ -23,11 +23,17 @@ class Principal_Activity : AppCompatActivity() {
         setContentView(R.layout.principal)
 
         viewModel = ViewModelProvider(this).get(PrincipalViewModel::class.java)
-
+        val cerrarSesion = findViewById<Button>(R.id.CerrarSesion)
         val practica1: LinearLayout = findViewById(R.id.practica1)
         val arrowButton1: ImageButton = findViewById(R.id.arrowButton)
         val btn_open_external_browser = findViewById<Button>(R.id.btn_open_external_browser)
         val btn_open_webview = findViewById<Button>(R.id.btn_open_webview)
+
+        cerrarSesion.setOnClickListener {
+            val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            sharedPreferences.edit().clear().apply()
+            finish()
+        }
 
         btn_open_external_browser.setOnClickListener {
             viewModel.openExternalBrowser(this)
@@ -35,8 +41,6 @@ class Principal_Activity : AppCompatActivity() {
 
         btn_open_webview.setOnClickListener {
             openWebview(this)
-
-
         }
 
         arrowButton1.setOnClickListener {
