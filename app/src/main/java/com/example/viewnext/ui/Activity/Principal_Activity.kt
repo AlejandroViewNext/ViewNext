@@ -1,7 +1,10 @@
 package com.example.viewnext.ui.Activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -31,7 +34,9 @@ class Principal_Activity : AppCompatActivity() {
         }
 
         btn_open_webview.setOnClickListener {
-            viewModel.openWebview(this)
+            openWebview(this)
+
+
         }
 
         arrowButton1.setOnClickListener {
@@ -50,5 +55,12 @@ class Principal_Activity : AppCompatActivity() {
         } else {
             practica1.visibility = View.INVISIBLE
         }
+    }
+    fun openWebview(context: Context) {
+        val webView = WebView(context)
+        webView.webViewClient = WebViewClient()
+        setContentView(webView)
+        webView.loadUrl("https://www.iberdrola.es")
+
     }
 }

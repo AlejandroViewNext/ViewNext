@@ -23,14 +23,14 @@ class SmartSolar_Activity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
 
-        // Crear un adaptador para manejar los fragmentos en los tabs
+
         val pagerAdapter = PagerAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
         viewPager.adapter = pagerAdapter
 
-        // Vincular ViewPager con TabLayout
+
         tabLayout.setupWithViewPager(viewPager)
 
-        // Configurar el clic en la Toolbar para redirigir a la actividad "Principal"
+
         toolbar.setNavigationOnClickListener {
             val intent = Intent(this, Principal_Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

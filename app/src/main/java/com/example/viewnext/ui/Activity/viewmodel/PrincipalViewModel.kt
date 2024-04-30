@@ -34,6 +34,8 @@ class PrincipalViewModel : ViewModel() {
         context.startActivity(intent)
     }
 
+
+//No funciona
     fun openWebview(context: Context) {
         val webView = WebView(context)
         webView.webViewClient = WebViewClient()
