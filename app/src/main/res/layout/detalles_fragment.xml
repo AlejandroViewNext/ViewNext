@@ -16,15 +16,15 @@
             android:layout_width="285dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="CAU (Código Autoconsumo)"
+            android:text="@string/cau"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/cauTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Placeholder para CAU"
-            android:hint="Ingrese el texto aquí" />
+            android:text="@string/placeholder"
+            android:hint="@string/placeholder" />
 
     </LinearLayout>
 
@@ -48,15 +48,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Estado solicitud alta de consumidor"
+                android:text="@string/Estado_solicitud"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/estadoTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Placeholder para Estado"
-                android:hint="Ingrese el texto aquí" />
+                android:text="@string/placeholder"
+                android:hint="@string/placeholder" />
 
         </LinearLayout>
 
@@ -84,15 +84,15 @@
             android:layout_width="261dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="Tipo de autoconsumo"
+            android:text="@string/tipo_de_autoconsumo"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tipoAutoconsumoTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Placeholder para Tipo de autoconsumo"
-            android:hint="Ingrese el texto aquí" />
+            android:text="@string/placeholder"
+            android:hint="@string/placeholder" />
 
     </LinearLayout>
 
@@ -110,15 +110,15 @@
             android:layout_width="313dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="Compensación de excedentes"
+            android:text="@string/compensaci_n_de_excedentes"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/compensacionExcedentesTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Placeholder para Compensación de excedentes"
-            android:hint="Ingrese el texto aquí" />
+            android:text="@string/placeholder"
+            android:hint="@string/placeholder" />
 
     </LinearLayout>
 
@@ -136,15 +136,15 @@
             android:layout_width="226dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="Potencia de instalación"
+            android:text="@string/potencia_de_instalaci_n"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/potenciaInstalacionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Placeholder para Potencia de instalación"
-            android:hint="Ingrese el texto aquí" />
+            android:text="@string/placeholder"
+            android:hint="@string/placeholder" />
 
     </LinearLayout>
 

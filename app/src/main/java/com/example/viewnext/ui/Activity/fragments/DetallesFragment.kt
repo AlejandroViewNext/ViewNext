@@ -36,9 +36,9 @@ class DetallesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detallesViewModel.loadData(requireContext())
-        detallesViewModel.detallesData.observe(viewLifecycleOwner, { detallesData ->
+        detallesViewModel.detallesData.observe(viewLifecycleOwner) { detallesData ->
             populateUI(detallesData)
-        })
+        }
     }
 
     private fun populateUI(detallesData: DetallesData) {

@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <!-- Vertical Layout -->
         <LinearLayout
 
             android:layout_width="0dp"
@@ -35,11 +34,8 @@
                 android:textSize="16sp"
                 android:textColor="#FF4D20"/>
 
-
-
         </LinearLayout>
 
-        <!-- Horizontal Layout -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="88dp"
@@ -63,7 +59,6 @@
                 android:layout_marginRight="10dp"
                 android:backgroundTint="#00FFFFFF"
                 android:src="@drawable/arrow_rigth" />
-
 
         </LinearLayout>
 

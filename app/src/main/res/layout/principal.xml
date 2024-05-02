@@ -18,11 +18,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginBottom="25dp"
             android:paddingTop="16dp"
             android:textColor="#434343"
-            android:text="Prácticas Android"
+            android:text="@string/pr_cticas_android"
             android:textSize="30sp"
             android:textStyle="bold"/>
 
@@ -36,11 +36,11 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:text="Práctica 1"
+                android:text="@string/pr_ctica_1"
                 android:textSize="17sp" />
 
             <ImageButton    
@@ -55,7 +55,6 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-
             android:layout_marginBottom="5dp"
             android:background="#DDDDDD" />
 
@@ -69,11 +68,11 @@
 
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:text="Práctica 2"
+                android:text="@string/pr_ctica_2"
                 android:textSize="17sp" />
 
             <ImageButton
@@ -102,19 +101,19 @@
                 android:id="@+id/btn_open_external_browser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Abrir Navegador Externo" />
+                android:text="@string/abrir_navegador_externo" />
 
             <Button
                 android:id="@+id/btn_open_webview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Abrir Webview" />
+                android:text="@string/abrir_webview" />
         </LinearLayout>
         <Button
             android:id="@+id/CerrarSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cerrar sesion" />
+            android:text="@string/cerrar_sesion" />
     </LinearLayout>
 
 </RelativeLayout>

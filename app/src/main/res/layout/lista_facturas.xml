@@ -22,9 +22,9 @@
             android:id="@+id/switch_retrofit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Retromock"
+            android:text="@string/retromock"
             android:checked="false"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -38,7 +38,8 @@
             android:layout_gravity="end"
             android:padding="8dp"
             android:backgroundTint="#00FFFFFF"
-            android:src="@drawable/filtro" />
+            android:src="@drawable/filtro"
+            android:contentDescription="@string/filtro" />
 
 
     </com.google.android.material.appbar.MaterialToolbar>
@@ -46,7 +47,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Facturas"
+        android:text="@string/facturas"
         android:textSize="30sp"
         android:textStyle="bold"
 
@@ -68,8 +69,8 @@
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="104dp"
             android:layout_weight="1" />
     </LinearLayout>
 

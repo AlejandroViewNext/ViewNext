@@ -1,10 +1,8 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 
 import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.CheckBox

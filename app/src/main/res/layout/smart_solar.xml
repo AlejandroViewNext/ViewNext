@@ -26,8 +26,8 @@
         android:layout_marginBottom="-120dp"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:text="Smart Solar"
+        android:layout_marginStart="20dp"
+        android:text="@string/smart_solar"
         android:textColor="#4C4C4C"
         />
 

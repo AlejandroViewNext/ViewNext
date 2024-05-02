@@ -7,7 +7,7 @@ import com.example.viewnext.ui.Activity.fragments.InstalacionFragment
 import com.example.viewnext.ui.Activity.fragments.DetallesFragment
 import com.example.viewnext.ui.Activity.fragments.EnergiaFragment
 
-class PagerAdapter(fm: FragmentManager, behaviorResumeOnlyCurrentFragment: Int) : FragmentPagerAdapter(fm) {
+class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
@@ -19,11 +19,11 @@ class PagerAdapter(fm: FragmentManager, behaviorResumeOnlyCurrentFragment: Int) 
     }
 
     override fun getCount(): Int {
-        return 3 // Número total de fragmentos
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        // Titulos para las pestañas
+
         return when (position) {
             0 -> "Mi Instalación"
             1 -> "Energía"

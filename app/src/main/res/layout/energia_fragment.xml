@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     tools:context=".ui.Activity.Practicas.Practica1.ListaFacturas_Activity">
 
-    <!-- ImageView -->
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="399dp"
@@ -20,16 +20,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- TextView debajo de la imagen (centrado en medio de la pantalla) -->
-    <TextView
+ <TextView
         android:id="@+id/textView"
         android:layout_width="208dp"
         android:layout_height="164dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Estamos trabajando en mejorar la App. Tus paneles solares siguen produciendo,
-en breve podrás seguir viendu tu produccion sola. Sentimos las molestias."
+        android:text="@string/mensaje_energia"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

@@ -23,7 +23,7 @@
         android:layout_above="@+id/fecha"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="-1dp"
-        android:text="Filtrar facturas"
+        android:text="@string/filtrar_facturas"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
         android:layout_height="30dp"
         android:layout_above="@+id/fechaLayout"
         android:layout_marginBottom="-14dp"
-        android:text="Con fecha de emisión"
+        android:text="@string/con_fecha_de_emisi_n"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -48,7 +48,6 @@
         <LinearLayout
             android:layout_width="140dp"
             android:layout_height="79dp"
-            android:layout_below="@id/fechaLayout"
             android:layout_marginTop="16dp"
             android:orientation="vertical">
 
@@ -56,7 +55,7 @@
                 android:id="@+id/desde"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Desde:"
+                android:text="@string/desde"
                 android:textColor="#959595"
                 android:textSize="15sp" />
 
@@ -71,9 +70,9 @@
                 android:gravity="center"
                 android:onClick="showDatePickerDialog"
                 android:shape="rectangle"
-                android:text="dia/mes/año"
+                android:text="@string/dia_mes_a_o"
                 android:textColor="#3E3D3D"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
 
         </LinearLayout>
@@ -94,7 +93,7 @@
                 android:id="@+id/hasta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hasta:"
+                android:text="@string/hasta"
                 android:textColor="#959595"
                 android:textSize="15sp" />
 
@@ -107,7 +106,7 @@
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:onClick="showDatePickerDialog"
-                android:text="dia/mes/año"
+                android:text="@string/dia_mes_a_o"
                 android:textColor="#3E3D3D"/>
 
         </LinearLayout>
@@ -129,7 +128,7 @@
         android:layout_height="21dp"
         android:layout_above="@+id/slider"
         android:layout_marginBottom="50dp"
-        android:text="Por un importe"
+        android:text="@string/por_un_importe"
         android:textSize="18sp"
         android:textStyle="bold" />
     <TextView
@@ -142,11 +141,7 @@
         android:textColor="@color/verdePistacho"
         android:textSize="20sp" />
 
-    <!-- Agrega TextView para el valor máximo del slider -->
 
-    <!-- Tu diseño existente -->
-
-    <!-- Agrega el Slider -->
 
     <TextView
         android:id="@+id/min_value_text"
@@ -156,12 +151,11 @@
         android:layout_alignStart="@id/slider"
         android:layout_alignBottom="@+id/range_selected_text"
         android:layout_marginStart="11dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="-85dp"
         android:layout_marginEnd="287dp"
         android:layout_marginBottom="-5dp"
         android:layout_toStartOf="@+id/max_value_text"
-        android:text="1"
+        android:text="@string/_1"
         android:textSize="16sp" />
 
     <TextView
@@ -171,8 +165,7 @@
         android:layout_below="@id/slider"
         android:layout_alignEnd="@id/slider"
         android:layout_marginTop="-89dp"
-
-        android:text="300"
+        android:text="@string/_300"
         android:textSize="16sp" />
 
     <com.google.android.material.slider.Slider
@@ -188,7 +181,6 @@
         android:layout_above="@id/view"
         android:layout_centerHorizontal="true" />
 
-    <!-- Otros elementos de tu diseño -->
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -203,7 +195,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
         android:layout_marginTop="-30dp"
-        android:text="Por estado"
+        android:text="@string/por_estado"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -219,31 +211,31 @@
             android:id="@+id/checkbox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pagadas" />
+            android:text="@string/pagadas" />
 
         <CheckBox
             android:id="@+id/checkbox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Anuladas" />
+            android:text="@string/anuladas" />
 
         <CheckBox
             android:id="@+id/checkbox3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cuota fija" />
+            android:text="@string/cuota_fija" />
 
         <CheckBox
             android:id="@+id/checkbox4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pendientes de pago" />
+            android:text="@string/pendientes_de_pago" />
 
         <CheckBox
             android:id="@+id/checkbox5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plan de pago" />
+            android:text="@string/plan_de_pago" />
 
     </LinearLayout>
 
@@ -259,7 +251,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Eliminar Filtros"
+            android:text="@string/eliminar_filtros"
             android:backgroundTint="#A3A3A3"
             />
 
@@ -268,10 +260,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Filtrar"
+            android:text="@string/filtrar"
             android:backgroundTint="@color/verdePistacho"
             />
-
     </LinearLayout>
-
 </RelativeLayout>
