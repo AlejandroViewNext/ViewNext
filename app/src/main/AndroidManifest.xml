@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.Activity.Practicas.Practica1.ListaFacturas_Activity" />
-        <activity android:name=".ui.Activity.Practicas.Practica1.FiltroFactura_Activity" />
+        <activity android:name=".ui.Activity.Practicas.Practica1.FiltroFacturaActivity" />
         <activity android:name=".ui.Activity.Practicas.Practica2.SmartSolar_Activity" />
         <activity android:name=".ui.Activity.Firebase.SignUp" />
         <activity android:name=".ui.Activity.Firebase.LogIn" />

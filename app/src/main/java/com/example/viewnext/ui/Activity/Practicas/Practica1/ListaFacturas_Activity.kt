@@ -81,7 +81,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
 
         val btnFiltro = findViewById<ImageButton>(R.id.btnFiltro)
         btnFiltro.setOnClickListener {
-            val intent = Intent(this, FiltroFactura_Activity::class.java)
+            val intent = Intent(this, FiltroFacturaActivity::class.java)
 
             startActivity(intent)
         }
@@ -105,7 +105,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
 
     private fun setupRetrofit() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://viewnextandroid4.wiremockapi.cloud/")
+            .baseUrl("https://viewnextandroid2.wiremockapi.cloud/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         service = retrofit.create(FacturaApiService::class.java)
@@ -113,7 +113,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
 
     private fun setupRetroMock() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://viewnextandroid4.wiremockapi.cloud/")
+            .baseUrl("https://viewnextandroid2.wiremockapi.cloud/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val retromock = Retromock.Builder()

@@ -7,7 +7,7 @@ import com.example.viewnext.ui.Activity.fragments.InstalacionFragment
 import com.example.viewnext.ui.Activity.fragments.DetallesFragment
 import com.example.viewnext.ui.Activity.fragments.EnergiaFragment
 
-class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class PagerAdapter(fm: FragmentManager, behaviorResumeOnlyCurrentFragment: Int) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
