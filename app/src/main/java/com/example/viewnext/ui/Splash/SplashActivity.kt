@@ -34,7 +34,7 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }, SPLASH_TIME_OUT)
 
-        //remote config
+        //hacemos el remoteconfig al principio para k ya esté actualizado (15 seg entre momento de refrescarse)
 val configSettings= remoteConfigSettings {
     minimumFetchIntervalInSeconds= 15
 }

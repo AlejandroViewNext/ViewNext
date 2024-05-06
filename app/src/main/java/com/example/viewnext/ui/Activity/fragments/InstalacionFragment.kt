@@ -13,7 +13,7 @@ class InstalacionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflar el diseño del fragmento
+
         return inflater.inflate(R.layout.instalacion_fragment, container, false)
     }
 }

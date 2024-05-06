@@ -26,7 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "factura_database"
                 )
-                    .fallbackToDestructiveMigration() // Esto eliminará y recreará la base de datos si ocurre una migración destructiva
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 return instance

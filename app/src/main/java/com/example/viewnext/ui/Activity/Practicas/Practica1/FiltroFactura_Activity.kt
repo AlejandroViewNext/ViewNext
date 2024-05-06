@@ -100,7 +100,7 @@ class FiltroFacturaActivity : AppCompatActivity() {
         viewModel.actualizarImporteMaximo(slider.value.toInt())
     }
 
-//investigar como quitarlo
+
     private fun showDatePickerDialog(materialButton: MaterialButton) {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)

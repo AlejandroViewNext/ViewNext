@@ -60,6 +60,8 @@ class Principal_Activity : AppCompatActivity() {
             practica1.visibility = View.INVISIBLE
         }
     }
+
+    // esto hay que quitarlo
     fun openWebview(context: Context) {
         val webView = WebView(context)
         webView.webViewClient = WebViewClient()

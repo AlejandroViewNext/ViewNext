@@ -17,7 +17,7 @@ class FacturasAdapter(private val facturas: List<Facturas.Factura>, private val 
         val tvFecha: TextView = view.findViewById(R.id.tvFecha)
         val tvEstado: TextView = view.findViewById(R.id.tvEstado)
         val tvImporte: TextView = view.findViewById(R.id.tvImporte)
-        val btn: ImageButton = view.findViewById(R.id.btn) // Este es el botón definido en el layout item_factura
+        val btn: ImageButton = view.findViewById(R.id.btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacturaViewHolder {

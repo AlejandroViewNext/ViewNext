@@ -35,7 +35,7 @@ class PrincipalViewModel : ViewModel() {
     }
 
 
-//No funciona
+//No funciona, por ahora está en el activity
     fun openWebview(context: Context) {
         val webView = WebView(context)
         webView.webViewClient = WebViewClient()

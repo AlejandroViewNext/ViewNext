@@ -15,9 +15,6 @@ interface FacturaDao {
     @Insert
     suspend fun insertAll(facturas: List<FacturaEntity>)
 
-    @Query("SELECT * FROM facturas")
-    suspend fun getFacturas(): List<FacturaEntity>
-
     @Query("DELETE FROM facturas")
     suspend fun deleteAllFacturas()
 }

@@ -72,10 +72,10 @@ class ListaFacturas_Activity : AppCompatActivity() {
         switchRetrofit.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 setupRetroMock()
-                loadFacturas2() // Cambiar a RetroMock
+                loadFacturas2() 
             } else {
                 setupRetrofit()
-                loadFacturas() // Cambiar a Retrofit
+                loadFacturas()
             }
         }
 
@@ -138,7 +138,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    // Guardar las facturas en la base de datos local
+
                     GlobalScope.launch {
                         facturasDao.deleteAllFacturas()
                         facturasApiResponse.forEach { factura ->
@@ -206,7 +206,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
     }
 
     private fun applyFiltersAndLoadAdapter() {
-        // Filtrar las facturas según los criterios
+
         val facturasFiltradas = facturasApiResponse.filter { factura ->
             val fechaFactura = factura.fecha
             val importeFactura = factura.importeOrdenacion
@@ -227,7 +227,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
             fechaDentroRango || importeDentroRango || estadoCoincide
         }
 
-        // Actualizar el adaptador con las facturas filtradas
+
         adapter = FacturasAdapter(facturasFiltradas, this@ListaFacturas_Activity)
         recyclerView.adapter = adapter
     }
