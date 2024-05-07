@@ -18,6 +18,7 @@ import com.example.viewnext.data.retromock.RetroMockFacturaApiService
 import com.example.viewnext.data.room.AppDatabase
 import com.example.viewnext.data.room.FacturaDao
 import com.example.viewnext.data.room.FacturaEntity
+import com.example.viewnext.navigate.Navigation
 import com.example.viewnext.ui.Activity.Principal_Activity
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.GlobalScope
@@ -50,6 +51,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val navigation = Navigation()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.lista_facturas)
         recyclerView = findViewById(R.id.recyclerViewFacturas)
@@ -58,9 +60,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         toolbar.setOnClickListener {
-            val intent = Intent(this@ListaFacturas_Activity, Principal_Activity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
+            navigation.navigateToPrincipalActivity(this@ListaFacturas_Activity)
         }
 
         val database = AppDatabase.getDatabase(applicationContext)
@@ -81,9 +81,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
 
         val btnFiltro = findViewById<ImageButton>(R.id.btnFiltro)
         btnFiltro.setOnClickListener {
-            val intent = Intent(this, FiltroFacturaActivity::class.java)
-
-            startActivity(intent)
+            navigation.navigateToFiltro(this)
         }
 
 
@@ -100,7 +98,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
             planPago = it.getBoolean("planPago", false)
         }
 
-        loadFacturas() // Cargar facturas inicialmente
+        loadFacturas() // Cargar retrofit inicialmente
     }
 
     private fun setupRetrofit() {
@@ -137,7 +135,6 @@ class ListaFacturas_Activity : AppCompatActivity() {
                         "Vista con retrofit",
                         Toast.LENGTH_SHORT
                     ).show()
-
 
                     GlobalScope.launch {
                         facturasDao.deleteAllFacturas()
@@ -179,19 +176,6 @@ class ListaFacturas_Activity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    // Guardar las facturas en la base de datos local
-                    GlobalScope.launch {
-                        facturasDao.deleteAllFacturas()
-                        facturasApiResponse.forEach { factura ->
-                            facturasDao.insertFactura(
-                                FacturaEntity(
-                                    fecha = factura.fecha,
-                                    importeOrdenacion = factura.importeOrdenacion,
-                                    descEstado = factura.descEstado
-                                )
-                            )
-                        }
-                    }
                 }
             }
 

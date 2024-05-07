@@ -1,6 +1,5 @@
 package com.example.viewnext.ui.Activity.Firebase
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -16,11 +15,11 @@ import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.viewmodel.firebase.SignUpViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-
+import com.example.viewnext.navigate.Navigation
 class SignUp : AppCompatActivity() {
 
     private lateinit var viewModel: SignUpViewModel
-
+    val navigation = Navigation()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.singup)
@@ -40,9 +39,7 @@ class SignUp : AppCompatActivity() {
         }
 
         botonLogIn.setOnClickListener {
-            val intent = Intent(this, LogIn::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
+            navigation.navigateToLogIn(this)
         }
 
         botonMostrarContraseña.setOnClickListener {
@@ -56,9 +53,7 @@ class SignUp : AppCompatActivity() {
 
         viewModel.registrationSuccess.observe(this, Observer { isSuccess ->
             if (isSuccess) {
-                val intent = Intent(this, LogIn::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
+                navigation.navigateToLogIn(this)
             }
         })
 
@@ -69,6 +64,8 @@ class SignUp : AppCompatActivity() {
             }
         })
 
+
+       //remoteconfig
         val colorFake = ContextCompat.getColor(this, R.color.black)
         val colorFake2 = ContextCompat.getColor(this, R.color.white)
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener { task ->

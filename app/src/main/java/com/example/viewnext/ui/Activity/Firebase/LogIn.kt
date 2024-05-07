@@ -1,56 +1,53 @@
 package com.example.viewnext.ui.Activity.Firebase
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.text.method.TransformationMethod
+import android.widget.Button
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
-import com.example.viewnext.ui.Activity.Principal_Activity
+import com.example.viewnext.navigate.Navigation
 import com.example.viewnext.ui.Activity.viewmodel.firebase.LogInViewModel
-
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 
 class LogIn: AppCompatActivity()  {
     private lateinit var viewModel: LogInViewModel
-    val editTextUsuario = findViewById<EditText>(R.id.editTextUsuario)
-    val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
+    private lateinit var editTextUsuario: EditText
+    private lateinit var editTextContraseña: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
-
+        val navigation = Navigation()
         viewModel = ViewModelProvider(this).get(LogInViewModel::class.java)
 
         val imagenLogo = findViewById<ImageView>(R.id.imageView)
         val botonRegistro = findViewById<Button>(R.id.botonRegistrar)
+        val textViewOlvidadoDatos = findViewById<TextView>(R.id.textViewOlvidadoDatos)
+        val botonEntrar = findViewById<Button>(R.id.botonEntrar)
+
+        editTextUsuario = findViewById(R.id.editTextUsuario)
+        editTextContraseña = findViewById(R.id.editTextContraseña)
 
         imagenLogo.setOnClickListener {
-            navigateToPrincipalActivity()
+            navigation.navigateToPrincipalActivity(this)
         }
 
         botonRegistro.setOnClickListener {
-            navigateToSignUp()
+            navigation.navigateToSignUp(this)
         }
 
-        val textViewOlvidadoDatos = findViewById<TextView>(R.id.textViewOlvidadoDatos)
         textViewOlvidadoDatos.setOnClickListener {
-            navigateToForgotPassword()
+            navigation.navigateToForgotPassword(this)
         }
 
-        val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
         val botonMostrarContraseña = findViewById<ImageButton>(R.id.imageViewPassword)
         botonMostrarContraseña.setOnClickListener {
             val newTransformationMethod = viewModel.togglePasswordVisibility(editTextContraseña.transformationMethod)
@@ -58,40 +55,36 @@ class LogIn: AppCompatActivity()  {
         }
 
         setup()
-
         setupRemoteConfig()
     }
 
-    fun setup() {
+     fun setup() {
         title = "Inicio"
-        val botonEntrar = findViewById<Button>(R.id.botonEntrar)
-        val editTextUsuario = findViewById<EditText>(R.id.editTextUsuario)
-        val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
         val checkBoxRecordar = findViewById<CheckBox>(R.id.checkBoxRecordar)
+         val navigation = Navigation()
+        val botonEntrar = findViewById<Button>(R.id.botonEntrar)
         botonEntrar.setOnClickListener {
             val email = editTextUsuario.text.toString()
             val password = editTextContraseña.text.toString()
 
-            if(email.isNotEmpty() && password.isNotEmpty()) {
+            if (email.isNotEmpty() && password.isNotEmpty()) {
                 viewModel.signInWithEmailAndPassword(email, password) { isSuccess ->
                     if (isSuccess) {
                         if (checkBoxRecordar.isChecked) {
-                            saveUsernameToSharedPreferences(email)
+                            navigation.saveUsernameToSharedPreferences(this, email)
                         }
-                        navigateToPrincipalActivity()
+                        navigation.navigateToPrincipalActivity(this)
                     } else {
-                        showAlert("Error", "Se ha producido un error al iniciar sesión")
+                        navigation.showAlert(this, "Error", "Se ha producido un error al iniciar sesión")
                     }
                 }
-            } else if (password.isEmpty()) {
-                showAlert("Error", "Datos incorrectos")
-            } else if (email.isEmpty()) {
-                showAlert("Error", "Datos incorrectos")
+            } else {
+                navigation.showAlert(this, "Error", "Datos incorrectos")
             }
         }
     }
 
-    fun setupRemoteConfig() {
+    private fun setupRemoteConfig() {
         val colorFake = ContextCompat.getColor(this, R.color.black)
         val colorFake2 = ContextCompat.getColor(this, R.color.white)
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{ task ->
@@ -109,41 +102,5 @@ class LogIn: AppCompatActivity()  {
                 }
             }
         }
-    }
-
-    fun navigateToPrincipalActivity() {
-        val intent = Intent(this, Principal_Activity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-        finish()
-    }
-
-    fun navigateToSignUp() {
-        val intent = Intent(this, SignUp::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-        finish()
-    }
-
-    fun navigateToForgotPassword() {
-        val intent = Intent(this, ForgotPassword::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-        finish()
-    }
-
-    fun showAlert(title: String, message: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(title)
-        builder.setMessage(message)
-        builder.setPositiveButton("Aceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-    }
-    fun saveUsernameToSharedPreferences(username: String) {
-        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("username", username)
-        editor.apply()
     }
 }

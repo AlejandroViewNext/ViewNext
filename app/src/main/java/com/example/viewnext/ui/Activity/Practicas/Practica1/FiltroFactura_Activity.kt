@@ -62,7 +62,6 @@ class FiltroFacturaActivity : AppCompatActivity() {
             slider.value = slider.valueFrom
             val defaultRangeText = " "
             rangeSelectedText.text = defaultRangeText
-
             viewModel.actualizarImporteMinimo(slider.valueFrom.toInt())
             viewModel.actualizarImporteMaximo(slider.value.toInt())
             viewModel.actualizarPagadas(false)
@@ -119,7 +118,6 @@ class FiltroFacturaActivity : AppCompatActivity() {
                     viewModel.actualizarFechaHasta(formattedDate)
                 }
             }, year, month, day)
-
         datePickerDialog.show()
     }
 

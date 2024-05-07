@@ -10,11 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.viewmodel.firebase.ForgotPasswordViewModel
-
-
+import com.example.viewnext.navigate.Navigation
 class ForgotPassword : AppCompatActivity() {
     private lateinit var viewModel: ForgotPasswordViewModel
-
+    val navigation = Navigation()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.forgot_password)
@@ -26,10 +25,7 @@ class ForgotPassword : AppCompatActivity() {
         val enviarCorreo = findViewById<Button>(R.id.enviarCorreo)
 
         botonLogIn.setOnClickListener {
-            val intent = Intent(this, LogIn::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            finish()
+            navigation.navigateToLogIn(this)
         }
 
         enviarCorreo.setOnClickListener {
