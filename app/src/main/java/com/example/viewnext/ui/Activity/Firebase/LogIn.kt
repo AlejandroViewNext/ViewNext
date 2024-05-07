@@ -26,7 +26,8 @@ import com.example.viewnext.ui.Activity.viewmodel.firebase.LogInViewModel
 
 class LogIn: AppCompatActivity()  {
     private lateinit var viewModel: LogInViewModel
-
+    val editTextUsuario = findViewById<EditText>(R.id.editTextUsuario)
+    val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
@@ -61,7 +62,7 @@ class LogIn: AppCompatActivity()  {
         setupRemoteConfig()
     }
 
-    private fun setup() {
+    fun setup() {
         title = "Inicio"
         val botonEntrar = findViewById<Button>(R.id.botonEntrar)
         val editTextUsuario = findViewById<EditText>(R.id.editTextUsuario)
@@ -90,7 +91,7 @@ class LogIn: AppCompatActivity()  {
         }
     }
 
-    private fun setupRemoteConfig() {
+    fun setupRemoteConfig() {
         val colorFake = ContextCompat.getColor(this, R.color.black)
         val colorFake2 = ContextCompat.getColor(this, R.color.white)
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{ task ->
@@ -110,28 +111,28 @@ class LogIn: AppCompatActivity()  {
         }
     }
 
-    private fun navigateToPrincipalActivity() {
+    fun navigateToPrincipalActivity() {
         val intent = Intent(this, Principal_Activity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         finish()
     }
 
-    private fun navigateToSignUp() {
+    fun navigateToSignUp() {
         val intent = Intent(this, SignUp::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         finish()
     }
 
-    private fun navigateToForgotPassword() {
+    fun navigateToForgotPassword() {
         val intent = Intent(this, ForgotPassword::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         finish()
     }
 
-    private fun showAlert(title: String, message: String) {
+    fun showAlert(title: String, message: String) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
         builder.setMessage(message)
@@ -139,7 +140,7 @@ class LogIn: AppCompatActivity()  {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
-    private fun saveUsernameToSharedPreferences(username: String) {
+    fun saveUsernameToSharedPreferences(username: String) {
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("username", username)
