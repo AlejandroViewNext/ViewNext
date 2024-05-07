@@ -1,5 +1,6 @@
 package com.example.viewnext.data.retrofit
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ class FacturasAdapter(private val facturas: List<Facturas.Factura>, private val 
         return FacturaViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FacturaViewHolder, position: Int) {
         val factura = facturas[position]
 
