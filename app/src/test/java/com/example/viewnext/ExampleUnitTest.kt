@@ -1,93 +1,46 @@
 package com.example.viewnext
 
-import android.view.View
-import com.example.viewnext.data.retrofit.Facturas
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.junit.MockitoJUnitRunner
-
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-/**
-import com.example.viewnext.ui.Activity.Firebase.LogIn
-import com.example.viewnext.ui.Activity.viewmodel.firebase.LogInViewModel
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.junit.MockitoJUnitRunner
-
 @RunWith(MockitoJUnitRunner::class)
 class LogInTest {
 
     @Mock
-    lateinit var viewModel: LogInViewModel
+    lateinit var firebaseAuth: FirebaseAuth
 
-    @Mock
-    lateinit var logInActivity: LogIn
+    lateinit var viewModel: LogInViewModel
 
     @Before
     fun setup() {
-        logInActivity = Mockito.spy(LogIn())
+        MockitoAnnotations.initMocks(this)
+        viewModel = LogInViewModel(firebaseAuth)
     }
 
+    // Prueba para el inicio de sesión con éxito
     @Test
-    fun testSignInWithEmailAndPasswordSuccess() {
+    fun `test signInWithEmailAndPassword success`() {
         val email = "test@example.com"
         val password = "password"
 
-        Mockito.`when`(logInActivity.editTextUsuario.text.toString()).thenReturn(email)
-        Mockito.`when`(logInActivity.editTextContraseña.text.toString()).thenReturn(password)
-        Mockito.`when`(
-            viewModel.signInWithEmailAndPassword(
-                Mockito.anyString(),
-                Mockito.anyString(),
-                Mockito.any()
-            )
-        ).thenAnswer {
-            val callback = it.arguments[2] as (Boolean) -> Unit
-            callback.invoke(true) // Simulate successful sign-in
+        `when`(firebaseAuth.signInWithEmailAndPassword(anyString(), anyString()))
+            .thenReturn(mockTask(true))
+
+        viewModel.signInWithEmailAndPassword(email, password) { success ->
+            assertTrue(success)
         }
-
-        logInActivity.setup()
-
-        Mockito.verify(logInActivity).navigateToPrincipalActivity()
     }
 
-    @Test
-    fun testSignInWithEmailAndPasswordFailure() {
-        val email = "test@example.com"
-        val password = "password"
+    // Método de utilidad para simular un Task de Firebase con un resultado específico
+    private fun mockTask(success: Boolean): Task<AuthResult> {
+        val mockTask = mock(Task::class.java) as Task<AuthResult>
+        val mockResult = mock(AuthResult::class.java)
 
-        Mockito.`when`(logInActivity.editTextUsuario.text.toString()).thenReturn(email)
-        Mockito.`when`(logInActivity.editTextContraseña.text.toString()).thenReturn(password)
-        Mockito.`when`(
-            viewModel.signInWithEmailAndPassword(
-                Mockito.anyString(),
-                Mockito.anyString(),
-                Mockito.any()
-            )
-        ).thenAnswer {
-            val callback = it.arguments[2] as (Boolean) -> Unit
-            callback.invoke(false) // Simulate failed sign-in
-        }
+        `when`(mockTask.isSuccessful).thenReturn(success)
+        `when`(mockTask.result).thenReturn(mockResult)
 
-        logInActivity.setup()
-
-        Mockito.verify(logInActivity).showAlert("Error", "Se ha producido un error al iniciar sesión")
+        return mockTask
     }
 }
-
 */
-
 /**
 import android.app.Application
 import android.content.Context
@@ -138,7 +91,7 @@ class ExampleUnitTest {
     }
 
 }
-*/
+
 
 
 /**
@@ -181,9 +134,6 @@ class FacturasAdapterTest {
         mockAdapter.onBindViewHolder(facturaViewHolder, 0)
         assertEquals(true, facturaViewHolder.tvEstado.visibility == View.VISIBLE)
     }
-
-    // Otros casos de prueba para verificar el formato de la fecha, la visibilidad de los elementos,
-    // etc. según las necesidades de tu aplicación.
 
 }
 

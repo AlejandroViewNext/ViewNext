@@ -19,8 +19,8 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 
 class LogIn: AppCompatActivity()  {
     private lateinit var viewModel: LogInViewModel
-    private lateinit var editTextUsuario: EditText
-    private lateinit var editTextContraseña: EditText
+    lateinit var editTextUsuario: EditText
+    lateinit var editTextContraseña: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
