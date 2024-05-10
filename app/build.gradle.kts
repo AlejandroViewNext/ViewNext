@@ -64,4 +64,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
     testImplementation("org.mockito:mockito-core:3.12.4")
+    implementation ("androidx.compose.ui:ui:1.6.7")
+    implementation ("androidx.compose.material:material:1.6.7")
+    implementation ("androidx.activity:activity-compose:1.9.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
 }
