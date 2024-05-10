@@ -1,15 +1,13 @@
 package com.example.viewnext.ui.Splash
 
+
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.example.viewnext.R
-import com.example.viewnext.ui.Activity.Firebase.LogIn
 import com.example.viewnext.ui.Activity.Principal_Activity
-
-
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -28,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 // Si no hay un nombre de usuario guardado, lleva al usuario a la pantalla de inicio de sesión
-                val intent = Intent(this, LogIn::class.java)
+               // val intent = Intent(this, LogIn::class.java)
                 startActivity(intent)
             }
             finish()
