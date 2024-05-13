@@ -1,42 +1,89 @@
 package com.example.viewnext.ui.Activity.Firebase
 
-
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.example.viewnext.R
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.viewnext.ui.Activity.viewmodel.firebase.ForgotPasswordViewModel
 import com.example.viewnext.navigate.Navigation
-class ForgotPassword : AppCompatActivity() {
-    private lateinit var viewModel: ForgotPasswordViewModel
+import com.example.viewnext.ui.theme.ViewNextTheme
+
+class ForgotPassword : ComponentActivity() {
     val navigation = Navigation()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.forgot_password)
-
-        viewModel = ViewModelProvider(this).get(ForgotPasswordViewModel::class.java)
-
-        val botonLogIn = findViewById<Button>(R.id.botonLogIn)
-        val correo = findViewById<EditText>(R.id.editTextCorreo)
-        val enviarCorreo = findViewById<Button>(R.id.enviarCorreo)
-
-        botonLogIn.setOnClickListener {
-            navigation.navigateToLogIn(this)
-        }
-
-        enviarCorreo.setOnClickListener {
-            val email = correo.text.toString()
-            viewModel.sendPasswordReset(email) { isSuccess ->
-                if (isSuccess) {
-                    Toast.makeText(baseContext, "Correo enviado", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(baseContext, "El correo no está registrado", Toast.LENGTH_SHORT).show()
+        setContent {
+            ViewNextTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(color = MaterialTheme.colors.background) {
+                    ForgotPasswordContent()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun ForgotPasswordContent(viewModel: ForgotPasswordViewModel = viewModel()) {
+    val context = LocalContext.current
+    var email by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Forgot Password",
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        TextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = {
+                viewModel.sendPasswordReset(email) { isSuccess ->
+                    val message = if (isSuccess) "Correo enviado" else "El correo no está registrado"
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Enviar Correo")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = { /* Navigate to login screen */ },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Iniciar Sesión")
         }
     }
 }

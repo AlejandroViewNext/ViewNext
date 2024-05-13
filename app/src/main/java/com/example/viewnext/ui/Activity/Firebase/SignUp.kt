@@ -100,7 +100,7 @@ fun SignUpForm(viewModel: SignUpViewModel, navController: NavController) {
             }
             Spacer(modifier = Modifier.width(8.dp))
             Button(onClick = {
-                navController.navigate("login") 
+                navController.navigate("login")
             }) {
                 Text(text = "Iniciar Sesión")
             }
