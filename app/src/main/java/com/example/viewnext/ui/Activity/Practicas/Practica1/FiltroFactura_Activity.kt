@@ -1,126 +1,219 @@
-package com.example.viewnext.ui.Activity.Practicas.Practica1
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.example.viewnext.R
-import com.example.viewnext.ui.Activity.viewmodel.practica1.FiltroFacturaViewModel
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.slider.Slider
-import java.util.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Checkbox
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Slider
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
+import java.util.Calendar
 
-class FiltroFacturaActivity : AppCompatActivity() {
-
-    private lateinit var viewModel: FiltroFacturaViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.filtro_factura)
-
-        viewModel = ViewModelProvider(this).get(FiltroFacturaViewModel::class.java)
-        viewModel.setContext(this)
-        val slider = findViewById<Slider>(R.id.slider)
-        val rangeSelectedText = findViewById<TextView>(R.id.range_selected_text)
-        val editTextDesde = findViewById<MaterialButton>(R.id.editText_desde)
-        val editTextHasta = findViewById<MaterialButton>(R.id.editText_hasta)
-        val eliminarFiltros = findViewById<Button>(R.id.eliminar_filtros)
-        val filtrarButton = findViewById<Button>(R.id.filtrar)
-        val checkbox1 = findViewById<CheckBox>(R.id.checkbox1)
-        val checkbox2 = findViewById<CheckBox>(R.id.checkbox2)
-        val checkbox3 = findViewById<CheckBox>(R.id.checkbox3)
-        val checkbox4 = findViewById<CheckBox>(R.id.checkbox4)
-        val checkbox5 = findViewById<CheckBox>(R.id.checkbox5)
-
-        slider.addOnChangeListener { _, value, _ ->
-            val selectedValueText = "1€  -   ${value.toInt()}€"
-            rangeSelectedText.text = selectedValueText
-            viewModel.actualizarImporteMinimo(value.toInt())
-
+class FiltroFactura_Activity : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                FiltroFacturaScreen()
+            }
         }
-
-        editTextDesde.setOnClickListener {
-            showDatePickerDialog(editTextDesde)
-        }
-
-        editTextHasta.setOnClickListener {
-            showDatePickerDialog(editTextHasta)
-        }
-
-        eliminarFiltros.setOnClickListener {
-            checkbox1.isChecked = false
-            checkbox2.isChecked = false
-            checkbox3.isChecked = false
-            checkbox4.isChecked = false
-            checkbox5.isChecked = false
-            editTextDesde.text = "día/mes/año"
-            editTextHasta.text = "día/mes/año"
-            slider.value = slider.valueFrom
-            val defaultRangeText = " "
-            rangeSelectedText.text = defaultRangeText
-            viewModel.actualizarImporteMinimo(slider.valueFrom.toInt())
-            viewModel.actualizarImporteMaximo(slider.value.toInt())
-            viewModel.actualizarPagadas(false)
-            viewModel.actualizarAnuladas(false)
-            viewModel.actualizarCuotaFija(false)
-            viewModel.actualizarPendientesPago(false)
-            viewModel.actualizarPlanPago(false)
-        }
-
-        checkbox1.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.actualizarPagadas(isChecked)
-        }
-
-        checkbox2.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.actualizarAnuladas(isChecked)
-        }
-
-        checkbox3.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.actualizarCuotaFija(isChecked)
-        }
-
-        checkbox4.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.actualizarPendientesPago(isChecked)
-        }
-
-        checkbox5.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.actualizarPlanPago(isChecked)
-        }
-
-        filtrarButton.setOnClickListener {
-            viewModel.enviarDatos()
-        }
-
-        viewModel.actualizarImporteMinimo(slider.valueFrom.toInt())
-        viewModel.actualizarImporteMaximo(slider.value.toInt())
     }
+}
+@Composable
+fun FiltroFacturaScreen() {
+    var desdeDate by remember { mutableStateOf(Calendar.getInstance()) }
+    var hastaDate by remember { mutableStateOf(Calendar.getInstance()) }
+    var importeRange by remember { mutableStateOf(1f) }
+    var isChecked1 by remember { mutableStateOf(false) }
+    var isChecked2 by remember { mutableStateOf(false) }
+    var isChecked3 by remember { mutableStateOf(false) }
+    var isChecked4 by remember { mutableStateOf(false) }
+    var isChecked5 by remember { mutableStateOf(false) }
 
-
-    private fun showDatePickerDialog(materialButton: MaterialButton) {
-        val cal = Calendar.getInstance()
-        val year = cal.get(Calendar.YEAR)
-        val month = cal.get(Calendar.MONTH)
-        val day = cal.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(this,
-            { _, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-                val selectedDate = Calendar.getInstance()
-                selectedDate.set(year, monthOfYear, dayOfMonth)
-                val formattedDate = viewModel.obtenerFechaFormateada(selectedDate)
-                materialButton.text = formattedDate
-                if (materialButton.id == R.id.editText_desde) {
-                    viewModel.actualizarFechaDesde(formattedDate)
-                } else if (materialButton.id == R.id.editText_hasta) {
-                    viewModel.actualizarFechaHasta(formattedDate)
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize()
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(bottom = 16.dp)
+        ) {
+            Text(
+                text = "Filtrar Facturas",
+                style = MaterialTheme.typography.h5,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            IconButton(onClick = { /* Handle close icon click */ }) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = null
+                )
+            }
+        }
+        Text(
+            text = "Con Fecha de Emisión",
+            style = MaterialTheme.typography.body1,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Row(
+            modifier = Modifier.padding(bottom = 8.dp)
+        ) {
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "Desde",
+                    style = MaterialTheme.typography.body2,
+                    color = Color.Gray
+                )
+                TextButton(
+                    onClick = { /* Show date picker for desdeDate */ },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "${desdeDate.get(Calendar.DAY_OF_MONTH)}/${desdeDate.get(Calendar.MONTH)}/${desdeDate.get(Calendar.YEAR)}")
                 }
-            }, year, month, day)
-        datePickerDialog.show()
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "Hasta",
+                    style = MaterialTheme.typography.body2,
+                    color = Color.Gray
+                )
+                TextButton(
+                    onClick = { /* Show date picker for hastaDate */ },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "${hastaDate.get(Calendar.DAY_OF_MONTH)}/${hastaDate.get(Calendar.MONTH)}/${hastaDate.get(Calendar.YEAR)}")
+                }
+            }
+        }
+        Divider(color = Color.Gray, thickness = 1.dp, modifier = Modifier.padding(vertical = 8.dp))
+        Text(
+            text = "Por un Importe",
+            style = MaterialTheme.typography.body1,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Slider(
+            value = importeRange,
+            onValueChange = { importeRange = it },
+            valueRange = 1f..300f,
+            steps = 299,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(bottom = 8.dp)
+        ) {
+            Text(
+                text = "$1",
+                style = MaterialTheme.typography.body2,
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = "$300",
+                style = MaterialTheme.typography.body2,
+                color = Color.Gray
+            )
+        }
+        Divider(color = Color.Gray, thickness = 1.dp, modifier = Modifier.padding(vertical = 8.dp))
+        Text(
+            text = "Por Estado",
+            style = MaterialTheme.typography.body1,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Checkbox(
+            checked = isChecked1,
+            onCheckedChange = { isChecked1 = it },
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+            Text("Pagadas")
+
+        Checkbox(
+            checked = isChecked2,
+            onCheckedChange = { isChecked2 = it },
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+            Text("Anuladas")
+
+        Checkbox(
+            checked = isChecked3,
+            onCheckedChange = { isChecked3 = it },
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+            Text("Cuota Fija")
+
+        Checkbox(
+            checked = isChecked4,
+            onCheckedChange = { isChecked4 = it },
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+            Text("Pendientes de Pago")
+
+        Checkbox(
+            checked = isChecked5,
+            onCheckedChange = { isChecked5 = it },
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+            Text("Plan de Pago")
+
+        Spacer(modifier = Modifier.weight(1f))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Button(
+                onClick = { /* eliminar_filtros*/ },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("Eliminar Filtros")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(
+                onClick = { /*filtrar*/ },
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
+            ) {
+                Text("Filtrar")
+            }
+        }
     }
-
-
-
 }
