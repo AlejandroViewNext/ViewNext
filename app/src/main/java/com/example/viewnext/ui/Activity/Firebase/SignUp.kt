@@ -36,6 +36,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.viewmodel.firebase.SignUpViewModel
 
+
 class SignUp : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +54,8 @@ fun SignUpScreen() {
     Surface(color = MaterialTheme.colors.background) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_logo_iberdrola_cli),
@@ -65,6 +66,7 @@ fun SignUpScreen() {
         }
     }
 }
+
 
 @Composable
 fun SignUpForm(viewModel: SignUpViewModel, navController: NavController) {

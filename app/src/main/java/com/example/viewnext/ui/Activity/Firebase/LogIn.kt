@@ -1,5 +1,8 @@
 package com.example.viewnext.ui.Activity.Firebase
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -33,6 +36,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.viewnext.R
 
+class LogIn : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            ListaFacturasScreen()
+        }
+    }
+}
 @Composable
 fun ListaFacturasScreen() {
     Column(
