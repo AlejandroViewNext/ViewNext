@@ -1,6 +1,6 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 
-import android.content.Intent
+
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Switch
@@ -19,7 +19,6 @@ import com.example.viewnext.data.room.AppDatabase
 import com.example.viewnext.data.room.FacturaDao
 import com.example.viewnext.data.room.FacturaEntity
 import com.example.viewnext.navigate.Navigation
-import com.example.viewnext.ui.Activity.Principal_Activity
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

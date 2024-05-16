@@ -1,4 +1,4 @@
-
+package com.example.viewnext.ui.Activity.Practicas.Practica1
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
