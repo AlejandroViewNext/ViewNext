@@ -64,4 +64,15 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
     testImplementation("org.mockito:mockito-core:3.12.4")
+
+
+
+    implementation ("io.ktor:ktor-client-core:2.0.0")
+    implementation (libs.ktor.client.cio)
+    implementation ("io.ktor:ktor-client-serialization:2.0.0")
+    implementation ("io.ktor:ktor-client-content-negotiation:2.0.0")
+    implementation ("io.ktor:ktor-client-logging:2.0.0")
+    implementation ("io.ktor:ktor-serialization-kotlinx-json:2.0.0")
+    implementation (libs.kotlinx.coroutines.android)
+    implementation (libs.kotlinx.coroutines.android.v160)
 }

@@ -2,6 +2,9 @@
 agp = "8.3.1"
 converterGson = "2.9.0"
 jrangeSeekBar = "1.1.0"
+kotlinxCoroutinesAndroid = "1.7.3"
+kotlinxCoroutinesAndroidVersion = "1.6.0"
+ktorClientCio = "2.0.0"
 lifecycleExtensions = "1.1.1"  # Cambiado desde "extensions"
 gradle = "4.1.3"
 kotlin = "1.9.0"
@@ -31,6 +34,9 @@ compiler = { module = "android.arch.lifecycle:compiler", version.ref = "lifecycl
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 infinum-retromock = { module = "co.infinum:retromock", version.ref = "retromockVersion" }
 jrange-seek-bar = { module = "com.jaygoo.widget:jrange-seek-bar", version.ref = "jrangeSeekBar" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlinx-coroutines-android-v160 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroidVersion" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
 lifecycleExtensions = { module = "android.arch.lifecycle:extensions", version.ref = "lifecycleExtensions" }  # Cambiado desde "extensions"
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

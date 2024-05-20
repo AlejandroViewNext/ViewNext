@@ -1,6 +1,5 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Switch
@@ -8,24 +7,29 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.infinum.retromock.Retromock
 import com.example.viewnext.R
 import com.example.viewnext.data.retrofit.FacturaApiService
 import com.example.viewnext.data.retrofit.Facturas
 import com.example.viewnext.data.retrofit.FacturasAdapter
-import com.example.viewnext.data.retromock.ResourceBodyFactory
-import com.example.viewnext.data.retromock.RetroMockFacturaApiService
 import com.example.viewnext.data.room.AppDatabase
 import com.example.viewnext.data.room.FacturaDao
 import com.example.viewnext.data.room.FacturaEntity
 import com.example.viewnext.navigate.Navigation
-import com.example.viewnext.ui.Activity.Principal_Activity
 import com.google.android.material.appbar.MaterialToolbar
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.get
+import io.ktor.client.statement.HttpResponse
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.withContext
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -35,9 +39,8 @@ class ListaFacturas_Activity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FacturasAdapter
     private lateinit var facturasDao: FacturaDao
-    private lateinit var service: FacturaApiService
-    private lateinit var service2: RetroMockFacturaApiService
-
+    private lateinit var client: HttpClient
+    private lateinit var retrofitService: FacturaApiService
 
     private var fechaDesde = "07/02/2000"
     private var fechaHasta = "07/02/2024"
@@ -49,6 +52,8 @@ class ListaFacturas_Activity : AppCompatActivity() {
     private var pendientesPago = false
     private var planPago = false
 
+    private val retrofitUrl = "https://viewnextandroid2.wiremockapi.cloud/facturas"
+    private val retromockUrl = "https://viewnextandroid2.wiremockapi.cloud/retromock_facturas"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val navigation = Navigation()
@@ -67,15 +72,14 @@ class ListaFacturas_Activity : AppCompatActivity() {
         facturasDao = database.facturaDao()
 
         val switchRetrofit: Switch = findViewById(R.id.switch_retrofit)
+        setupKtorClient()
         setupRetrofit()
 
         switchRetrofit.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                setupRetroMock()
-                loadFacturas2() 
+                loadFacturasWithKtor(retromockUrl)
             } else {
-                setupRetrofit()
-                loadFacturas()
+                loadFacturasWithKtor(retrofitUrl)
             }
         }
 
@@ -83,7 +87,6 @@ class ListaFacturas_Activity : AppCompatActivity() {
         btnFiltro.setOnClickListener {
             navigation.navigateToFiltro(this)
         }
-
 
         val extras = intent.extras
         extras?.let {
@@ -98,7 +101,21 @@ class ListaFacturas_Activity : AppCompatActivity() {
             planPago = it.getBoolean("planPago", false)
         }
 
-        loadFacturas() // Cargar retrofit inicialmente
+        loadFacturasWithKtor(retrofitUrl) // Cargar Ktor inicialmente
+    }
+
+    private fun setupKtorClient() {
+        client = HttpClient(CIO) {
+            install(ContentNegotiation) {
+                json(Json {
+                    ignoreUnknownKeys = true
+                    isLenient = true
+                })
+            }
+            install(Logging) {
+                level = LogLevel.BODY
+            }
+        }
     }
 
     private fun setupRetrofit() {
@@ -106,98 +123,57 @@ class ListaFacturas_Activity : AppCompatActivity() {
             .baseUrl("https://viewnextandroid2.wiremockapi.cloud/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        service = retrofit.create(FacturaApiService::class.java)
+        retrofitService = retrofit.create(FacturaApiService::class.java)
     }
 
-    private fun setupRetroMock() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://viewnextandroid2.wiremockapi.cloud/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val retromock = Retromock.Builder()
-            .retrofit(retrofit)
-            .defaultBodyFactory(ResourceBodyFactory())
-            .build()
-        service2 = retromock.create(RetroMockFacturaApiService::class.java)
-    }
+    private fun loadFacturasWithKtor(url: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val response: HttpResponse = withContext(Dispatchers.IO) {
+                    client.get(url)
+                }
 
-    private fun loadFacturas() {
-        service.getFacturas().enqueue(object : Callback<Facturas.ApiResponse> {
-            override fun onResponse(
-                call: Call<Facturas.ApiResponse>,
-                response: Response<Facturas.ApiResponse>
-            ) {
-                if (response.isSuccessful) {
-                    facturasApiResponse = response.body()?.facturas ?: emptyList()
-                    applyFiltersAndLoadAdapter()
-                    Toast.makeText(
-                        applicationContext,
-                        "Vista con retrofit",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                val facturasApiResponse: Facturas.ApiResponse = Json.decodeFromString(response.toString())
+                applyFiltersAndLoadAdapter()
+                Toast.makeText(
+                    applicationContext,
+                    "Vista con Ktor",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-                    GlobalScope.launch {
-                        facturasDao.deleteAllFacturas()
-                        facturasApiResponse.forEach { factura ->
-                            facturasDao.insertFactura(
-                                FacturaEntity(
-                                    fecha = factura.fecha,
-                                    importeOrdenacion = factura.importeOrdenacion,
-                                    descEstado = factura.descEstado
-                                )
+                GlobalScope.launch {
+                    facturasDao.deleteAllFacturas()
+                    facturasApiResponse.facturas.forEach { factura ->
+                        facturasDao.insertFactura(
+                            FacturaEntity(
+                                fecha = factura.fecha,
+                                importeOrdenacion = factura.importeOrdenacion,
+                                descEstado = factura.descEstado
                             )
-                        }
+                        )
                     }
                 }
-            }
-
-            override fun onFailure(call: Call<Facturas.ApiResponse>, t: Throwable) {
+            } catch (e: Exception) {
                 Toast.makeText(
                     applicationContext,
-                    "Error al cargar retrofit",
+                    "Error al cargar con Ktor",
                     Toast.LENGTH_LONG
                 ).show()
             }
-        })
+        }
     }
 
-    private fun loadFacturas2() {
-        service2.getFacturas().enqueue(object : Callback<Facturas.ApiResponse> {
-            override fun onResponse(
-                call: Call<Facturas.ApiResponse>,
-                response: Response<Facturas.ApiResponse>
-            ) {
-                if (response.isSuccessful) {
-                    facturasApiResponse = response.body()?.facturas ?: emptyList()
-                    applyFiltersAndLoadAdapter()
-                    Toast.makeText(
-                        applicationContext,
-                        "Vista con retromock",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
-                }
-            }
 
-            override fun onFailure(call: Call<Facturas.ApiResponse>, t: Throwable) {
-                Toast.makeText(
-                    applicationContext,
-                    "Error al cargar retromock",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        })
-    }
 
     private fun applyFiltersAndLoadAdapter() {
-
         val facturasFiltradas = facturasApiResponse.filter { factura ->
             val fechaFactura = factura.fecha
             val importeFactura = factura.importeOrdenacion
             val estadoFactura = factura.descEstado
 
             val fechaDentroRango = fechaFactura in fechaDesde..fechaHasta
-            val importeDentroRango: Boolean = importeFactura >= importeMinimo && importeFactura <= importeMaximo
+            val importeDentroRango = importeFactura >= importeMinimo && importeFactura <= importeMaximo
             val estadoCoincide = when {
                 pagadas && estadoFactura.equals("Pagada", ignoreCase = true) -> true
                 anuladas && estadoFactura.equals("Anulada", ignoreCase = true) -> true
@@ -211,12 +187,9 @@ class ListaFacturas_Activity : AppCompatActivity() {
             fechaDentroRango || importeDentroRango || estadoCoincide
         }
 
-
         adapter = FacturasAdapter(facturasFiltradas, this@ListaFacturas_Activity)
         recyclerView.adapter = adapter
     }
-
-
 
     fun onItemFacturaClicked() {
         showCustomAlertDialog()
