@@ -1,6 +1,7 @@
 package com.example.viewnext.data.retrofit
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,14 @@ import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas_Activi
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class FacturasAdapter(private val facturas: List<Facturas.Factura>, private val clickListener: ListaFacturas_Activity) : RecyclerView.Adapter<FacturasAdapter.FacturaViewHolder>() {
+class FacturasAdapter(private val facturas: List<Facturas.Factura>, private val context: Context) :
+    RecyclerView.Adapter<FacturasAdapter.FacturaViewHolder>() {
+
+    private lateinit var clickListener: ListaFacturas_Activity
+
+    fun setItemClickListener(clickListener: ListaFacturas_Activity) {
+        this.clickListener = clickListener
+    }
 
     class FacturaViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val tvFecha: TextView = view.findViewById(R.id.tvFecha)
@@ -40,7 +48,6 @@ class FacturasAdapter(private val facturas: List<Facturas.Factura>, private val 
         }
 
         holder.tvFecha.text = formattedDate
-        holder.tvEstado.text = factura.descEstado
         holder.tvImporte.text = "${factura.importeOrdenacion}€"
 
         holder.btn.setOnClickListener {
@@ -48,7 +55,9 @@ class FacturasAdapter(private val facturas: List<Facturas.Factura>, private val 
         }
     }
 
-    override fun getItemCount() = facturas.size
+    override fun getItemCount(): Int {
+        return facturas.size
+    }
 
     private fun formatDate(dateStr: String): String {
         val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

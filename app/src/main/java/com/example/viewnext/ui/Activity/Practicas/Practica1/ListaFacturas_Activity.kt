@@ -1,6 +1,8 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import android.widget.Switch
 import android.widget.Toast
@@ -22,8 +24,10 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -55,6 +59,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
     private val retrofitUrl = "https://viewnextandroid2.wiremockapi.cloud/facturas"
     private val retromockUrl = "https://viewnextandroid2.wiremockapi.cloud/retromock_facturas"
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         val navigation = Navigation()
         super.onCreate(savedInstanceState)
@@ -107,10 +112,11 @@ class ListaFacturas_Activity : AppCompatActivity() {
     private fun setupKtorClient() {
         client = HttpClient(CIO) {
             install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                })
+                json(
+                    contentType = ContentType.Application.Json,
+                    json = kotlinx.serialization.json.Json {
+                        ignoreUnknownKeys = true // Opcional: Ignorar claves desconocidas en el JSON
+                    })
             }
             install(Logging) {
                 level = LogLevel.BODY
@@ -126,14 +132,15 @@ class ListaFacturas_Activity : AppCompatActivity() {
         retrofitService = retrofit.create(FacturaApiService::class.java)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun loadFacturasWithKtor(url: String) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response: HttpResponse = withContext(Dispatchers.IO) {
-                    client.get(url)
+                val response: String = withContext(Dispatchers.IO) {
+                    client.get(url).bodyAsText()
                 }
-
-                val facturasApiResponse: Facturas.ApiResponse = Json.decodeFromString(response.toString())
+                var facturaApiResponse= Json.decodeFromString<Facturas.ApiResponse>(response)
+                this@ListaFacturas_Activity.facturasApiResponse = facturaApiResponse.facturas
                 applyFiltersAndLoadAdapter()
                 Toast.makeText(
                     applicationContext,
@@ -143,7 +150,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
 
                 GlobalScope.launch {
                     facturasDao.deleteAllFacturas()
-                    facturasApiResponse.facturas.forEach { factura ->
+                    facturaApiResponse.facturas.forEach { factura ->
                         facturasDao.insertFactura(
                             FacturaEntity(
                                 fecha = factura.fecha,
@@ -159,12 +166,10 @@ class ListaFacturas_Activity : AppCompatActivity() {
                     "Error al cargar con Ktor",
                     Toast.LENGTH_LONG
                 ).show()
+                Log.e("oliwis",e.message.toString())
             }
         }
     }
-
-
-
 
     private fun applyFiltersAndLoadAdapter() {
         val facturasFiltradas = facturasApiResponse.filter { factura ->
@@ -183,11 +188,11 @@ class ListaFacturas_Activity : AppCompatActivity() {
                 else -> false
             }
 
-            // Verificar si al menos una de las condiciones se cumple
             fechaDentroRango || importeDentroRango || estadoCoincide
         }
 
         adapter = FacturasAdapter(facturasFiltradas, this@ListaFacturas_Activity)
+        adapter.setItemClickListener(this@ListaFacturas_Activity)
         recyclerView.adapter = adapter
     }
 
