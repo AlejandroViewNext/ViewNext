@@ -9,10 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.infinum.retromock.Retromock
 import com.example.viewnext.R
-import com.example.viewnext.data.retrofit.FacturaApiService
 import com.example.viewnext.data.retrofit.Facturas
 import com.example.viewnext.data.retrofit.FacturasAdapter
+import com.example.viewnext.data.retromock.ResourceBodyFactory
+import com.example.viewnext.data.retromock.RetroMockFacturaApiService
 import com.example.viewnext.data.room.AppDatabase
 import com.example.viewnext.data.room.FacturaDao
 import com.example.viewnext.data.room.FacturaEntity
@@ -44,7 +46,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
     private lateinit var adapter: FacturasAdapter
     private lateinit var facturasDao: FacturaDao
     private lateinit var client: HttpClient
-    private lateinit var retrofitService: FacturaApiService
+    private lateinit var retrofitService: RetroMockFacturaApiService
 
     private var fechaDesde = "07/02/2000"
     private var fechaHasta = "07/02/2024"
@@ -57,7 +59,6 @@ class ListaFacturas_Activity : AppCompatActivity() {
     private var planPago = false
 
     private val retrofitUrl = "https://viewnextandroid2.wiremockapi.cloud/facturas"
-    private val retromockUrl = "https://viewnextandroid2.wiremockapi.cloud/retromock_facturas"
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,10 +80,11 @@ class ListaFacturas_Activity : AppCompatActivity() {
         val switchRetrofit: Switch = findViewById(R.id.switch_retrofit)
         setupKtorClient()
         setupRetrofit()
+        setupRetroMock()
 
         switchRetrofit.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                loadFacturasWithKtor(retromockUrl)
+                loadFacturasWithRetroMock()
             } else {
                 loadFacturasWithKtor(retrofitUrl)
             }
@@ -129,7 +131,21 @@ class ListaFacturas_Activity : AppCompatActivity() {
             .baseUrl("https://viewnextandroid2.wiremockapi.cloud/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        retrofitService = retrofit.create(FacturaApiService::class.java)
+        retrofitService = retrofit.create(RetroMockFacturaApiService::class.java)
+    }
+
+    private fun setupRetroMock() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://viewnextandroid2.wiremockapi.cloud/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val retromock = Retromock.Builder()
+            .retrofit(retrofit)
+            .defaultBodyFactory(ResourceBodyFactory())
+            .build()
+
+        retrofitService = retromock.create(RetroMockFacturaApiService::class.java)
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -139,14 +155,10 @@ class ListaFacturas_Activity : AppCompatActivity() {
                 val response: String = withContext(Dispatchers.IO) {
                     client.get(url).bodyAsText()
                 }
-                var facturaApiResponse= Json.decodeFromString<Facturas.ApiResponse>(response)
+                val facturaApiResponse = Json.decodeFromString<Facturas.ApiResponse>(response)
                 this@ListaFacturas_Activity.facturasApiResponse = facturaApiResponse.facturas
                 applyFiltersAndLoadAdapter()
-                Toast.makeText(
-                    applicationContext,
-                    "Vista con Ktor",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(applicationContext, "Vista con Ktor", Toast.LENGTH_SHORT).show()
 
                 GlobalScope.launch {
                     facturasDao.deleteAllFacturas()
@@ -161,12 +173,44 @@ class ListaFacturas_Activity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(
-                    applicationContext,
-                    "Error al cargar con Ktor",
-                    Toast.LENGTH_LONG
-                ).show()
-                Log.e("oliwis",e.message.toString())
+                Toast.makeText(applicationContext, "Error al cargar con Ktor", Toast.LENGTH_LONG).show()
+                Log.e("ListaFacturas_Activity", e.message.toString())
+            }
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun loadFacturasWithRetroMock() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    retrofitService.getFacturas().execute()
+                }
+
+                if (response.isSuccessful) {
+                    val facturaApiResponse = response.body()
+                    this@ListaFacturas_Activity.facturasApiResponse = facturaApiResponse?.facturas ?: emptyList()
+                    applyFiltersAndLoadAdapter()
+                    Toast.makeText(applicationContext, "Vista con RetroMock", Toast.LENGTH_SHORT).show()
+
+                    GlobalScope.launch {
+                        facturasDao.deleteAllFacturas()
+                        this@ListaFacturas_Activity.facturasApiResponse.forEach { factura ->
+                            facturasDao.insertFactura(
+                                FacturaEntity(
+                                    fecha = factura.fecha,
+                                    importeOrdenacion = factura.importeOrdenacion,
+                                    descEstado = factura.descEstado
+                                )
+                            )
+                        }
+                    }
+                } else {
+                    Toast.makeText(applicationContext, "Error al cargar con RetroMock", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(applicationContext, "Error al cargar con RetroMock", Toast.LENGTH_LONG).show()
+                Log.e("ListaFacturas_Activity", e.message.toString())
             }
         }
     }
