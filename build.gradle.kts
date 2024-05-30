@@ -2,6 +2,8 @@ buildscript {
     dependencies {
         //Ktor
         classpath("org.jetbrains.kotlin:kotlin-serialization:1.5.21")
+//Dagger Hilt
+        classpath ("com.google.dagger:hilt-android-gradle-plugin:2.51.1")
     }
 }
 plugins {

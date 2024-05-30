@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -33,7 +34,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
 }
 
 dependencies {
@@ -54,10 +54,7 @@ dependencies {
     implementation (libs.material.v140)
     kapt (libs.androidx.room.compiler)
     implementation ("com.google.code.gson:gson:2.10.1")
-
     implementation ("androidx.activity:activity-ktx:1.3.1")
-
-    // RetroMock
     implementation (libs.retrofit2.retrofit.mock)
     implementation("com.google.android.gms:play-services-auth:21.1.0")
     implementation (libs.infinum.retromock)
@@ -65,9 +62,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
     testImplementation("org.mockito:mockito-core:3.12.4")
-
-
-
     implementation ("io.ktor:ktor-client-core:2.0.0")
     implementation (libs.ktor.client.cio)
     implementation ("io.ktor:ktor-client-serialization:2.0.0")
@@ -76,4 +70,10 @@ dependencies {
     implementation ("io.ktor:ktor-serialization-kotlinx-json:2.0.0")
     implementation (libs.kotlinx.coroutines.android)
     implementation (libs.kotlinx.coroutines.android.v160)
+
+    // Hilt dependencies
+
+    implementation (libs.hilt.android)
+
+    kapt (libs.hilt.android.compiler)
 }

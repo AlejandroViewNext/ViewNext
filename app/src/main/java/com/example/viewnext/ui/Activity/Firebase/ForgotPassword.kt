@@ -1,7 +1,5 @@
 package com.example.viewnext.ui.Activity.Firebase
 
-
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,11 +7,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
-import com.example.viewnext.ui.Activity.viewmodel.firebase.ForgotPasswordViewModel
 import com.example.viewnext.navigate.Navigation
+import com.example.viewnext.ui.Activity.viewmodel.firebase.ForgotPasswordViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
 class ForgotPassword : AppCompatActivity() {
+
+    @Inject
+    lateinit var navigation: Navigation
+
     private lateinit var viewModel: ForgotPasswordViewModel
-    val navigation = Navigation()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.forgot_password)

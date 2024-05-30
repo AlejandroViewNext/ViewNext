@@ -1,10 +1,10 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica2
 
-
+// SmartSolar_Activity.kt
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
@@ -14,7 +14,9 @@ import com.example.viewnext.ui.Activity.adapter.PagerAdapter
 import com.example.viewnext.ui.Activity.viewmodel.practica2.SmartSolarViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SmartSolar_Activity : AppCompatActivity() {
 
     private val viewModel: SmartSolarViewModel by viewModels()

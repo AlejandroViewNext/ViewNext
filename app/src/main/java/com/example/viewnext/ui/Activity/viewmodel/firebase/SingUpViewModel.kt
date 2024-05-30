@@ -21,7 +21,7 @@ class SignUpViewModel : ViewModel() {
                 if (task.isSuccessful) {
                     _registrationSuccess.value = true
                 } else {
-                    _error.value = task.exception?.message ?: "An error occurred"
+                    _error.value = task.exception?.message ?: "Error"
                 }
             }
     }

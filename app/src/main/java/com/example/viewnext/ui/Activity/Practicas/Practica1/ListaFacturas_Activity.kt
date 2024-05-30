@@ -20,6 +20,7 @@ import com.example.viewnext.data.room.FacturaDao
 import com.example.viewnext.data.room.FacturaEntity
 import com.example.viewnext.navigate.Navigation
 import com.google.android.material.appbar.MaterialToolbar
+import dagger.hilt.android.AndroidEntryPoint
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -38,9 +39,13 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ListaFacturas_Activity : AppCompatActivity() {
-
+    @Inject lateinit var httpClient: HttpClient
+    @Inject
+    lateinit var retroMockFacturaApiService: RetroMockFacturaApiService
     private lateinit var facturasApiResponse: List<Facturas.Factura>
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FacturasAdapter

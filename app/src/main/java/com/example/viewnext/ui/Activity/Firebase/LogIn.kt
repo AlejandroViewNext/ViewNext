@@ -8,25 +8,30 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
 import com.example.viewnext.navigate.Navigation
 import com.example.viewnext.ui.Activity.viewmodel.firebase.LogInViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class LogIn: AppCompatActivity()  {
-    private lateinit var viewModel: LogInViewModel
+@AndroidEntryPoint
+class LogIn : AppCompatActivity() {
+    private val viewModel: LogInViewModel by viewModels()
+
+    @Inject
+    lateinit var navigation: Navigation
+
     lateinit var editTextUsuario: EditText
     lateinit var editTextContraseña: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
-        val navigation = Navigation()
-        viewModel = ViewModelProvider(this).get(LogInViewModel::class.java)
 
         val imagenLogo = findViewById<ImageView>(R.id.imageView)
         val botonRegistro = findViewById<Button>(R.id.botonRegistrar)
@@ -58,10 +63,9 @@ class LogIn: AppCompatActivity()  {
         setupRemoteConfig()
     }
 
-     fun setup() {
+    fun setup() {
         title = "Inicio"
         val checkBoxRecordar = findViewById<CheckBox>(R.id.checkBoxRecordar)
-         val navigation = Navigation()
         val botonEntrar = findViewById<Button>(R.id.botonEntrar)
         botonEntrar.setOnClickListener {
             val email = editTextUsuario.text.toString()
@@ -87,10 +91,10 @@ class LogIn: AppCompatActivity()  {
     private fun setupRemoteConfig() {
         val colorFake = ContextCompat.getColor(this, R.color.black)
         val colorFake2 = ContextCompat.getColor(this, R.color.white)
-        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{ task ->
-            if(task.isSuccessful){
-                val showColor : Boolean = Firebase.remoteConfig.getBoolean("Show_Colors")
-                if (showColor){
+        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val showColor: Boolean = Firebase.remoteConfig.getBoolean("Show_Colors")
+                if (showColor) {
                     val botonRegistro = findViewById<Button>(R.id.botonRegistrar)
                     val botonEntrar = findViewById<Button>(R.id.botonEntrar)
                     botonRegistro.setBackgroundColor(colorFake)

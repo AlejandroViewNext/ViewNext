@@ -12,14 +12,21 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
+import com.example.viewnext.navigate.Navigation
 import com.example.viewnext.ui.Activity.viewmodel.firebase.SignUpViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.example.viewnext.navigate.Navigation
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
 class SignUp : AppCompatActivity() {
 
+    @Inject
+    lateinit var navigation: Navigation
+
     private lateinit var viewModel: SignUpViewModel
-    val navigation = Navigation()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.singup)
@@ -64,8 +71,7 @@ class SignUp : AppCompatActivity() {
             }
         })
 
-
-       //remoteconfig
+        // Remote Config
         val colorFake = ContextCompat.getColor(this, R.color.black)
         val colorFake2 = ContextCompat.getColor(this, R.color.white)
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener { task ->
