@@ -26,6 +26,7 @@ object AppModule {
     }
 
     @Provides
+    @Singleton
     fun provideHttpClient(): HttpClient {
         return HttpClient(CIO) {
             install(ContentNegotiation) {
@@ -38,7 +39,6 @@ object AppModule {
             }
         }
     }
-
     @Provides
     fun provideRetroMockFacturaApiService(): RetroMockFacturaApiService {
         return RetroMockFacturaApiService.create()

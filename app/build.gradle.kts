@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,10 +71,22 @@ dependencies {
     implementation ("io.ktor:ktor-serialization-kotlinx-json:2.0.0")
     implementation (libs.kotlinx.coroutines.android)
     implementation (libs.kotlinx.coroutines.android.v160)
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation ("org.mockito:mockito-android:3.11.2")
 
+    testImplementation ("org.mockito:mockito-inline:3.11.2")
+
+
+    testImplementation (libs.androidx.core)
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+    testImplementation ("io.mockk:mockk:1.12.0")
     // Hilt dependencies
 
     implementation (libs.hilt.android)
 
     kapt (libs.hilt.android.compiler)
+    implementation(kotlin("test"))
 }

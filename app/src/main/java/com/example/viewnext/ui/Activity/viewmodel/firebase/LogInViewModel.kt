@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class LogInViewModel : ViewModel() {
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun signInWithEmailAndPassword(email: String, password: String, onComplete: (Boolean) -> Unit) {
         firebaseAuth.signInWithEmailAndPassword(email, password)

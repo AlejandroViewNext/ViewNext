@@ -44,12 +44,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ListaFacturas_Activity : AppCompatActivity() {
     @Inject lateinit var httpClient: HttpClient
-    @Inject
-    lateinit var retroMockFacturaApiService: RetroMockFacturaApiService
-    private lateinit var facturasApiResponse: List<Facturas.Factura>
+    @Inject lateinit var retroMockFacturaApiService: RetroMockFacturaApiService
+    lateinit var facturasApiResponse: List<Facturas.Factura>
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FacturasAdapter
-    private lateinit var facturasDao: FacturaDao
+     private lateinit var facturasDao: FacturaDao
     private lateinit var client: HttpClient
     private lateinit var retrofitService: RetroMockFacturaApiService
 
@@ -63,7 +62,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
     private var pendientesPago = false
     private var planPago = false
 
-    private val retrofitUrl = "https://viewnextandroid2.wiremockapi.cloud/facturas"
+     private val retrofitUrl = "https://viewnextandroid2.wiremockapi.cloud/facturas"
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +90,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
             if (isChecked) {
                 loadFacturasWithRetroMock()
             } else {
-                loadFacturasWithKtor(retrofitUrl)
+                loadFacturasWithKtor(httpClient, retrofitUrl)
             }
         }
 
@@ -113,7 +112,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
             planPago = it.getBoolean("planPago", false)
         }
 
-        loadFacturasWithKtor(retrofitUrl) // Cargar Ktor inicialmente
+        loadFacturasWithKtor(httpClient, retrofitUrl) // Cargar Ktor inicialmente
     }
 
     private fun setupKtorClient() {
@@ -154,11 +153,11 @@ class ListaFacturas_Activity : AppCompatActivity() {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun loadFacturasWithKtor(url: String) {
+    fun loadFacturasWithKtor (httpClient: HttpClient, url: String) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val response: String = withContext(Dispatchers.IO) {
-                    client.get(url).bodyAsText()
+                    httpClient.get(url).bodyAsText()
                 }
                 val facturaApiResponse = Json.decodeFromString<Facturas.ApiResponse>(response)
                 this@ListaFacturas_Activity.facturasApiResponse = facturaApiResponse.facturas
@@ -183,9 +182,8 @@ class ListaFacturas_Activity : AppCompatActivity() {
             }
         }
     }
-
     @OptIn(DelicateCoroutinesApi::class)
-    private fun loadFacturasWithRetroMock() {
+    fun loadFacturasWithRetroMock() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val response = withContext(Dispatchers.IO) {

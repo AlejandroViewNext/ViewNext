@@ -13,7 +13,6 @@ interface RetroMockFacturaApiService {
     @MockResponse(body = "mock.json")
     @GET("resources")
     fun getFacturas(): Call<Facturas.ApiResponse>
-
     companion object {
         fun create(): RetroMockFacturaApiService {
             val retrofit = Retrofit.Builder()

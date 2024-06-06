@@ -12,7 +12,7 @@ class Facturas {
 
     @Serializable
     data class ApiResponse(
-        val numFacturas: Int,
+        val numFacturas: List<Factura>,
         val facturas: List<Factura>
     )
 
