@@ -11,7 +11,7 @@
         android:id="@+id/dialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/estado_solicitud_autoconsumo"
+        android:text="@string/txt_estado_solicitud_autoconsumo"
         android:textSize="20sp"
         android:textColor="@android:color/black"
         android:gravity="center"
@@ -21,7 +21,7 @@
         android:id="@+id/dialogDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/detalles_PopPup"
+        android:text="@string/txt_detalles_PopPup"
         android:textColor="@android:color/black"
         android:gravity="center"
         android:layout_marginBottom="16dp"/>
@@ -30,7 +30,7 @@
         android:id="@+id/dialogButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/Aceptar"
+        android:text="@string/btn_Aceptar"
         android:backgroundTint="@color/verdePistacho"
         android:textColor="@android:color/white"
 

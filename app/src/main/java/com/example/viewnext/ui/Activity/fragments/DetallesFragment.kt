@@ -66,8 +66,8 @@ class DetallesFragment : Fragment() {
         val dialogDescriptionTextView = dialogView.findViewById<TextView>(R.id.dialogDescription)
         val dialogButton = dialogView.findViewById<Button>(R.id.dialogButton)
 
-        dialogTitleTextView.text = getString(R.string.estado_solicitud_autoconsumo)
-        dialogDescriptionTextView.text = getString(R.string.detalles_PopPup)
+        dialogTitleTextView.text = getString(R.string.txt_estado_solicitud_autoconsumo)
+        dialogDescriptionTextView.text = getString(R.string.txt_detalles_PopPup)
 
         val alertDialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)

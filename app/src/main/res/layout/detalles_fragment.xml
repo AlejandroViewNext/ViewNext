@@ -16,15 +16,15 @@
             android:layout_width="285dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="@string/cau"
+            android:text="@string/txt_cau"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/cauTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/placeholder"
-            android:hint="@string/placeholder" />
+            android:text="@string/txt_placeholder"
+            android:hint="@string/txt_placeholder" />
 
     </LinearLayout>
 
@@ -48,15 +48,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="@string/Estado_solicitud"
+                android:text="@string/txt_Estado_solicitud"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/estadoTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/placeholder"
-                android:hint="@string/placeholder" />
+                android:text="@string/txt_placeholder"
+                android:hint="@string/txt_placeholder" />
 
         </LinearLayout>
 
@@ -84,15 +84,15 @@
             android:layout_width="261dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="@string/tipo_de_autoconsumo"
+            android:text="@string/txt_tipo_de_autoconsumo"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tipoAutoconsumoTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/placeholder"
-            android:hint="@string/placeholder" />
+            android:text="@string/txt_placeholder"
+            android:hint="@string/txt_placeholder" />
 
     </LinearLayout>
 
@@ -110,15 +110,15 @@
             android:layout_width="313dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="@string/compensaci_n_de_excedentes"
+            android:text="@string/txt_compensaci_n_de_excedentes"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/compensacionExcedentesTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/placeholder"
-            android:hint="@string/placeholder" />
+            android:text="@string/txt_placeholder"
+            android:hint="@string/txt_placeholder" />
 
     </LinearLayout>
 
@@ -136,15 +136,15 @@
             android:layout_width="226dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="@string/potencia_de_instalaci_n"
+            android:text="@string/txt_potencia_de_instalaci_n"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/potenciaInstalacionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/placeholder"
-            android:hint="@string/placeholder" />
+            android:text="@string/txt_placeholder"
+            android:hint="@string/txt_placeholder" />
 
     </LinearLayout>
 

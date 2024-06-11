@@ -1,18 +1,19 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.viewmodel.practica1.FiltroFacturaViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.slider.Slider
-import java.util.*
+import java.util.Calendar
 
 class FiltroFacturaActivity : AppCompatActivity() {
 
@@ -22,7 +23,8 @@ class FiltroFacturaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filtro_factura)
 
-        viewModel = ViewModelProvider(this).get(FiltroFacturaViewModel::class.java)
+
+        viewModel = ViewModelProvider(this)[FiltroFacturaViewModel::class.java]
         viewModel.setContext(this)
         val slider = findViewById<Slider>(R.id.slider)
         val rangeSelectedText = findViewById<TextView>(R.id.range_selected_text)
@@ -36,6 +38,13 @@ class FiltroFacturaActivity : AppCompatActivity() {
         val checkbox4 = findViewById<CheckBox>(R.id.checkbox4)
         val checkbox5 = findViewById<CheckBox>(R.id.checkbox5)
 
+        val botonEsquina = findViewById<ImageButton>(R.id.boton_esquina)
+
+
+        botonEsquina.setOnClickListener {
+            val intent = Intent(this, ListaFacturas_Activity::class.java)
+            startActivity(intent)
+        }
         slider.addOnChangeListener { _, value, _ ->
             val selectedValueText = "1€  -   ${value.toInt()}€"
             rangeSelectedText.text = selectedValueText

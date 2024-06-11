@@ -22,7 +22,7 @@
             android:id="@+id/switch_retrofit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/retromock"
+            android:text="@string/txt_spinner_retromock"
             android:checked="false"
             android:layout_marginStart="30dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             android:padding="8dp"
             android:backgroundTint="#00FFFFFF"
             android:src="@drawable/filtro"
-            android:contentDescription="@string/filtro" />
+            android:contentDescription="@string/titulo_filtro" />
 
 
     </com.google.android.material.appbar.MaterialToolbar>
@@ -47,7 +47,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/facturas"
+        android:text="@string/titulo_facturas"
         android:textSize="30sp"
         android:textStyle="bold"
 

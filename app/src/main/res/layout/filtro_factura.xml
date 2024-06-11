@@ -23,7 +23,7 @@
         android:layout_above="@+id/fecha"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="-1dp"
-        android:text="@string/filtrar_facturas"
+        android:text="@string/btn_filtrar_facturas"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
         android:layout_height="30dp"
         android:layout_above="@+id/fechaLayout"
         android:layout_marginBottom="-14dp"
-        android:text="@string/con_fecha_de_emisi_n"
+        android:text="@string/txt_con_fecha_de_emisi_n"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
                 android:id="@+id/desde"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/desde"
+                android:text="@string/dtxt_esde"
                 android:textColor="#959595"
                 android:textSize="15sp" />
 
@@ -70,7 +70,7 @@
                 android:gravity="center"
                 android:onClick="showDatePickerDialog"
                 android:shape="rectangle"
-                android:text="@string/dia_mes_a_o"
+                android:text="@string/txt_dia_mes_a_o"
                 android:textColor="#3E3D3D"
                 android:textSize="14sp" />
 
@@ -93,7 +93,7 @@
                 android:id="@+id/hasta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hasta"
+                android:text="@string/txt_hasta"
                 android:textColor="#959595"
                 android:textSize="15sp" />
 
@@ -106,7 +106,7 @@
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:onClick="showDatePickerDialog"
-                android:text="@string/dia_mes_a_o"
+                android:text="@string/txt_dia_mes_a_o"
                 android:textColor="#3E3D3D"/>
 
         </LinearLayout>
@@ -128,7 +128,7 @@
         android:layout_height="21dp"
         android:layout_above="@+id/slider"
         android:layout_marginBottom="50dp"
-        android:text="@string/por_un_importe"
+        android:text="@string/txt_por_un_importe"
         android:textSize="18sp"
         android:textStyle="bold" />
     <TextView
@@ -155,7 +155,7 @@
         android:layout_marginEnd="287dp"
         android:layout_marginBottom="-5dp"
         android:layout_toStartOf="@+id/max_value_text"
-        android:text="@string/_1"
+        android:text="@string/txt_1"
         android:textSize="16sp" />
 
     <TextView
@@ -165,7 +165,7 @@
         android:layout_below="@id/slider"
         android:layout_alignEnd="@id/slider"
         android:layout_marginTop="-89dp"
-        android:text="@string/_300"
+        android:text="@string/txt_300"
         android:textSize="16sp" />
 
     <com.google.android.material.slider.Slider
@@ -195,7 +195,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
         android:layout_marginTop="-30dp"
-        android:text="@string/por_estado"
+        android:text="@string/txt_por_estado"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -211,31 +211,31 @@
             android:id="@+id/checkbox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pagadas" />
+            android:text="@string/txt_pagadas" />
 
         <CheckBox
             android:id="@+id/checkbox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/anuladas" />
+            android:text="@string/txt_anuladas" />
 
         <CheckBox
             android:id="@+id/checkbox3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cuota_fija" />
+            android:text="@string/txt_cuota_fija" />
 
         <CheckBox
             android:id="@+id/checkbox4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pendientes_de_pago" />
+            android:text="@string/txt_pendientes_de_pago" />
 
         <CheckBox
             android:id="@+id/checkbox5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/plan_de_pago" />
+            android:text="@string/txt_plan_de_pago" />
 
     </LinearLayout>
 
@@ -251,7 +251,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/eliminar_filtros"
+            android:text="@string/btn_eliminar_filtros"
             android:backgroundTint="#A3A3A3"
             />
 
@@ -260,7 +260,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/filtrar"
+            android:text="@string/btn_filtrar"
             android:backgroundTint="@color/verdePistacho"
             />
     </LinearLayout>
