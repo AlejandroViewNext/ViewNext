@@ -1,10 +1,10 @@
 package com.example.viewnext.ui.Activity.viewmodel
-import androidx.lifecycle.ViewModel
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.lifecycle.ViewModel
 import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas_Activity
 import com.example.viewnext.ui.Activity.Practicas.Practica2.SmartSolar_Activity
 import com.google.firebase.ktx.Firebase
@@ -30,7 +30,7 @@ class PrincipalViewModel : ViewModel() {
     }
 
     fun openExternalBrowser(context: Context) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.iberdrola.es"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.iberdrola.com"))
         context.startActivity(intent)
     }
 

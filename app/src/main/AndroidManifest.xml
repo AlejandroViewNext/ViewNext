@@ -21,13 +21,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activity.Practicas.Practica1.ListaFacturas_Activity" />
-        <activity android:name=".ui.Activity.Practicas.Practica1.FiltroFacturaActivity" />
-        <activity android:name=".ui.Activity.Practicas.Practica2.SmartSolar_Activity" />
-        <activity android:name=".ui.Activity.Firebase.SignUp" />
-        <activity android:name=".ui.Activity.Firebase.LogIn" />
-        <activity android:name=".ui.Activity.Firebase.ForgotPassword" />
-        <activity android:name=".ui.Activity.Principal_Activity" />
+        <activity android:name=".ui.Activity.Practicas.Practica1.ListaFacturas_Activity"
+            android:screenOrientation="portrait"/>/>
+        <activity android:name=".ui.Activity.Practicas.Practica1.FiltroFacturaActivity"
+            android:screenOrientation="portrait"/>/>
+        <activity android:name=".ui.Activity.Practicas.Practica2.SmartSolar_Activity"
+            android:screenOrientation="portrait"/>/>
+        <activity android:name=".ui.Activity.Firebase.SignUp"
+            android:screenOrientation="portrait"/>/>
+        <activity android:name=".ui.Activity.Firebase.LogIn"
+            android:screenOrientation="portrait"/>/>
+        <activity android:name=".ui.Activity.Firebase.ForgotPassword"
+            android:screenOrientation="portrait"/>/>
+        <activity android:name=".ui.Activity.Principal_Activity"
+            android:screenOrientation="portrait"/>/>
 
     </application>
 

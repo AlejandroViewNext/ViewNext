@@ -8,6 +8,7 @@ import com.example.viewnext.ui.Activity.Firebase.ForgotPassword
 import com.example.viewnext.ui.Activity.Firebase.LogIn
 import com.example.viewnext.ui.Activity.Firebase.SignUp
 import com.example.viewnext.ui.Activity.Practicas.Practica1.FiltroFacturaActivity
+import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas_Activity
 import com.example.viewnext.ui.Activity.Principal_Activity
 class Navigation {
     fun navigateToPrincipalActivity(context: Context) {
@@ -36,6 +37,11 @@ class Navigation {
 
     fun navigateToFiltro(context: Context) {
         val intent = Intent(context, FiltroFacturaActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        context.startActivity(intent)
+    }
+    fun navigateToLista(context: Context) {
+        val intent = Intent(context, ListaFacturas_Activity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         context.startActivity(intent)
     }

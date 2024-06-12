@@ -55,7 +55,7 @@
                 android:id="@+id/desde"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dtxt_esde"
+                android:text="@string/txt_desde"
                 android:textColor="#959595"
                 android:textSize="15sp" />
 
@@ -70,7 +70,7 @@
                 android:gravity="center"
                 android:onClick="showDatePickerDialog"
                 android:shape="rectangle"
-                android:text="@string/txt_dia_mes_a_o"
+                android:text="@string/txt_hasta_fecha"
                 android:textColor="#3E3D3D"
                 android:textSize="14sp" />
 
@@ -106,7 +106,7 @@
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:onClick="showDatePickerDialog"
-                android:text="@string/txt_dia_mes_a_o"
+                android:text="@string/txt_desde_fecha"
                 android:textColor="#3E3D3D"/>
 
         </LinearLayout>
@@ -174,7 +174,7 @@
         android:layout_height="wrap_content"
         android:valueFrom="1"
         android:valueTo="300"
-        android:value="1"
+        android:value="300"
         app:thumbColor="@color/verdePistacho"
         app:trackColorActive="@color/verdePistacho"
         android:layout_marginBottom="16dp"

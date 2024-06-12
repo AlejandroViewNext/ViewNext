@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
 import com.example.viewnext.ui.Activity.viewmodel.PrincipalViewModel
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 
 
 class Principal_Activity : AppCompatActivity() {
@@ -23,11 +22,12 @@ class Principal_Activity : AppCompatActivity() {
         setContentView(R.layout.principal)
 
         viewModel = ViewModelProvider(this).get(PrincipalViewModel::class.java)
-        val cerrarSesion = findViewById<Button>(R.id.CerrarSesion)
-        val practica1: LinearLayout = findViewById(R.id.practica1)
-        val arrowButton1: ImageButton = findViewById(R.id.arrowButton)
-        val btn_open_external_browser = findViewById<Button>(R.id.btn_open_external_browser)
-        val btn_open_webview = findViewById<Button>(R.id.btn_open_webview)
+        val cerrarSesion = findViewById<MaterialButton>(R.id.CerrarSesion)
+        val practica1 = findViewById<MaterialCardView>(R.id.practica1)
+        val arrowButton1 = findViewById<View>(R.id.arrowButton)
+        val practica2 = findViewById<MaterialCardView>(R.id.practica2)
+        val btn_open_external_browser = findViewById<MaterialButton>(R.id.btn_open_external_browser)
+        val btn_open_webview = findViewById<MaterialButton>(R.id.btn_open_webview)
 
         cerrarSesion.setOnClickListener {
             val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -43,12 +43,11 @@ class Principal_Activity : AppCompatActivity() {
             openWebview(this)
         }
 
-        arrowButton1.setOnClickListener {
+        practica1.setOnClickListener {
             viewModel.openListaFacturasActivity(this)
         }
 
-        val arrowButton2: ImageButton = findViewById(R.id.arrowButton2)
-        arrowButton2.setOnClickListener {
+        practica2.setOnClickListener {
             viewModel.openSmartSolarActivity(this)
         }
 
@@ -56,8 +55,11 @@ class Principal_Activity : AppCompatActivity() {
         val showPractica = viewModel.checkPracticaVisibility(this)
         if (showPractica) {
             practica1.visibility = View.VISIBLE
+            practica2.visibility = View.VISIBLE
         } else {
+
             practica1.visibility = View.INVISIBLE
+            practica2.visibility = View.INVISIBLE
         }
     }
 
@@ -66,7 +68,7 @@ class Principal_Activity : AppCompatActivity() {
         val webView = WebView(context)
         webView.webViewClient = WebViewClient()
         setContentView(webView)
-        webView.loadUrl("https://www.iberdrola.es")
+        webView.loadUrl("https://www.iberdrola.com")
 
     }
 }

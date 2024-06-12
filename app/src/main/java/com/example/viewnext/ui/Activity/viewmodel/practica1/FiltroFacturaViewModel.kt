@@ -1,16 +1,14 @@
 package com.example.viewnext.ui.Activity.viewmodel.practica1
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.widget.EditText
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.viewnext.ui.Activity.Practicas.Practica1.ListaFacturas_Activity
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class FiltroFacturaViewModel : ViewModel() {
 
@@ -49,9 +47,14 @@ class FiltroFacturaViewModel : ViewModel() {
     }
 
     init {
-        // Inicializar los valores predeterminados
-        _fechaDesde.value = "día/mes/año"
-        _fechaHasta.value = "día/mes/año"
+        val calendarDesde = Calendar.getInstance()
+        calendarDesde.set(2018, Calendar.JANUARY, 1)
+        _fechaDesde.value = obtenerFechaFormateada(calendarDesde)
+
+        // Establecer la fecha de finalización a la fecha actual
+        val calendarHasta = Calendar.getInstance()
+        _fechaHasta.value = obtenerFechaFormateada(calendarHasta)
+
         _importeMinimo.value = 1
         _importeMaximo.value = 300
         _pagadas.value = false

@@ -1,7 +1,6 @@
 package com.example.viewnext.ui.Activity.Practicas.Practica1
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
@@ -10,10 +9,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.viewnext.R
+import com.example.viewnext.navigate.Navigation
 import com.example.viewnext.ui.Activity.viewmodel.practica1.FiltroFacturaViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.slider.Slider
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class FiltroFacturaActivity : AppCompatActivity() {
 
@@ -42,8 +44,9 @@ class FiltroFacturaActivity : AppCompatActivity() {
 
 
         botonEsquina.setOnClickListener {
-            val intent = Intent(this, ListaFacturas_Activity::class.java)
-            startActivity(intent)
+            val navigation = Navigation()
+            navigation.navigateToLista(this)
+
         }
         slider.addOnChangeListener { _, value, _ ->
             val selectedValueText = "1€  -   ${value.toInt()}€"
@@ -53,11 +56,24 @@ class FiltroFacturaActivity : AppCompatActivity() {
         }
 
         editTextDesde.setOnClickListener {
-            showDatePickerDialog(editTextDesde)
+            val calendarDesde = Calendar.getInstance().apply {
+                time = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(viewModel.fechaDesde.value)
+            }
+            DatePickerDialog(this, { _, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, month, dayOfMonth)
+                viewModel.actualizarFechaDesde(viewModel.obtenerFechaFormateada(selectedDate))
+            }, calendarDesde.get(Calendar.YEAR), calendarDesde.get(Calendar.MONTH), calendarDesde.get(Calendar.DAY_OF_MONTH)).show()
         }
-
         editTextHasta.setOnClickListener {
-            showDatePickerDialog(editTextHasta)
+            val calendarHasta = Calendar.getInstance().apply {
+                time = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(viewModel.fechaHasta.value)
+            }
+            DatePickerDialog(this, { _, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, month, dayOfMonth)
+                viewModel.actualizarFechaHasta(viewModel.obtenerFechaFormateada(selectedDate))
+            }, calendarHasta.get(Calendar.YEAR), calendarHasta.get(Calendar.MONTH), calendarHasta.get(Calendar.DAY_OF_MONTH)).show()
         }
 
         eliminarFiltros.setOnClickListener {
@@ -101,7 +117,16 @@ class FiltroFacturaActivity : AppCompatActivity() {
         }
 
         filtrarButton.setOnClickListener {
+            val navigation = Navigation()
+            navigation.navigateToLista(this)
             viewModel.enviarDatos()
+        }
+        viewModel.fechaDesde.observe(this) { fecha ->
+            editTextDesde.text = fecha
+        }
+
+        viewModel.fechaHasta.observe(this) { fecha ->
+            editTextHasta.text = fecha
         }
 
         viewModel.actualizarImporteMinimo(slider.valueFrom.toInt())

@@ -74,10 +74,13 @@ class ListaFacturas_Activity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        toolbar.setOnClickListener(null)
 
-        toolbar.setOnClickListener {
-            navigation.navigateToPrincipalActivity(this@ListaFacturas_Activity)
+        toolbar.setNavigationOnClickListener {
+            val navigation = Navigation()
+            navigation.navigateToPrincipalActivity(this)
         }
+
 
         val database = AppDatabase.getDatabase(applicationContext)
         facturasDao = database.facturaDao()
@@ -122,7 +125,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
                 json(
                     contentType = ContentType.Application.Json,
                     json = kotlinx.serialization.json.Json {
-                        ignoreUnknownKeys = true // Opcional: Ignorar claves desconocidas en el JSON
+                        ignoreUnknownKeys = true
                     })
             }
             install(Logging) {
@@ -178,7 +181,7 @@ class ListaFacturas_Activity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(applicationContext, "Error al cargar con Ktor", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Error de conexión al cargar con Ktor", Toast.LENGTH_LONG).show()
                 Log.e("ListaFacturas_Activity", e.message.toString())
             }
         }
@@ -211,10 +214,10 @@ class ListaFacturas_Activity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    Toast.makeText(applicationContext, "Error al cargar con RetroMock", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Error de conexión al cargar RetroMock", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(applicationContext, "Error al cargar con RetroMock", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Error de conexión al cargar RetroMock", Toast.LENGTH_LONG).show()
                 Log.e("ListaFacturas_Activity", e.message.toString())
             }
         }
